@@ -23,7 +23,6 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
         jdbc:
           lob:
-
             non_contextual_creation: true
     show-sql: true
 

@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 @Builder
 public class AccountEntity extends BaseEntity {
 
+    @Id
     @Column(unique = true)
     private String userId;
     private String password;
