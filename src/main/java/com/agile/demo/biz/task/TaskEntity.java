@@ -14,17 +14,12 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "T_AGL_TASK")
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class TaskEntity extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="nt_seq", nullable = false, length = 25, unique = true)
-    private Long nt_seq;
 
     @Column(nullable = false, updatable = true, length = 100)
     private String title;
@@ -38,16 +33,6 @@ public class TaskEntity extends BaseEntity {
     @Column(nullable = true, updatable = true)
     private Long assign;
 
-    @Column(name = "createDate", nullable = true, insertable = true, updatable = false)
-    @CreatedDate
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
-    private LocalDateTime create_date;
-
-    @Column(name = "updateData", nullable = true, insertable = true, updatable = true)
-    @LastModifiedDate
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
-    private LocalDateTime update_data;
-
     @Column(nullable = false, updatable = true)
     private Long presenter;
 
@@ -55,14 +40,14 @@ public class TaskEntity extends BaseEntity {
     private Long manager;
 
     @OneToOne
-    @JoinColumn(name = "userId", insertable = false, unique = true, updatable = false)
+    @JoinColumn(name = "account_seq", referencedColumnName = "seq")
     private AccountEntity account;
 
     @ManyToOne
-    @JoinColumn(name = "np_seq", insertable = false, unique = true, updatable = false)
+    @JoinColumn(name = "project_seq", referencedColumnName = "seq")
     private ProjectEntity projectEntity;
 
     @ManyToOne
-    @JoinColumn(name = "nb_seq", insertable = false, unique = true, updatable = false)
+    @JoinColumn(name = "backlog_seq", referencedColumnName = "seq")
     private BacklogEntity backlogEntity;
 }

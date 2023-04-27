@@ -3,22 +3,17 @@ package com.agile.demo.biz.account;
 import com.agile.demo.core.base.BaseEntity;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "T_CM_ACCOUNT")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class AccountEntity extends BaseEntity {
 
-    @Id
     @Column(unique = true)
     private String userId;
     private String password;

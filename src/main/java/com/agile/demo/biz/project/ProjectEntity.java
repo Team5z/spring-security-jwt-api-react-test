@@ -1,18 +1,16 @@
 package com.agile.demo.biz.project;
 
-
-import com.agile.demo.biz.accountproject.AccountProjectEntity;
 import com.agile.demo.biz.backlog.BacklogEntity;
+import com.agile.demo.biz.project.account.AccountProjectEntity;
 import com.agile.demo.biz.task.TaskEntity;
 import com.agile.demo.core.base.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "T_AGL_ACCOUNT")
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
@@ -21,31 +19,20 @@ import java.util.List;
 
 public class ProjectEntity extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="np_seq", nullable = false, length = 25, unique = true)
-    private long np_seq;
-
     @Column(nullable = false, updatable = true, length = 100)
-    private String project_title;
+    private String title;
 
     @Column(nullable = true, updatable = true)
-    private String project_assign;
+    private LocalDateTime endAt;
 
 
-    @OneToMany(cascade = CascadeType.REMOVE)
-    @JoinColumn(name="nb_seq", referencedColumnName="nb_seq")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<BacklogEntity> backlogs;       // 체크 필요
 
-    @OneToMany(cascade = CascadeType.REMOVE)
-    @JoinColumn(name="nt_seq", referencedColumnName="nt_seq")
-    private List<TaskEntity> task;
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<TaskEntity> tasks;
 
-    @OneToOne
-    @JoinColumn(name="np_seq", referencedColumnName="np_seq")
-    private AccountProjectEntity accountProjects;
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<AccountProjectEntity> accountProjects;
 
-//    @OneToMany(cascade = CascadeType.REMOVE)
-//    @JoinColumn(name="nap_seq")
-//    private List<AccountProjectEntity> accountproject;
 }

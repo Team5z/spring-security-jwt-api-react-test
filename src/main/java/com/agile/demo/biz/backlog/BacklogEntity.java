@@ -1,25 +1,21 @@
 package com.agile.demo.biz.backlog;
 
 import com.agile.demo.biz.project.ProjectEntity;
+import com.agile.demo.biz.task.TaskEntity;
 import com.agile.demo.core.base.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
-@Table(name = "T_AGL_BACKLOG")
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class BacklogEntity extends BaseEntity implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="nb_seq", nullable = false, length = 25, unique = true)
-    private Long nb_seq;
+public class BacklogEntity extends BaseEntity{
 
     @Column(nullable = false, updatable = true, length = 100)
     private String title;
@@ -33,7 +29,6 @@ public class BacklogEntity extends BaseEntity implements Serializable {
     @Column(nullable = true, updatable = true)
     private Long assign;
 
-//    @ManyToOne
-//    @JoinColumn(name = "np_seq", insertable = false, updatable = false)
-//    private ProjectEntity project;
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<TaskEntity> tasks;
 }
