@@ -25,7 +25,6 @@ public class ProjectEntity extends BaseEntity{
     @Column(nullable = true, updatable = true)
     private LocalDateTime endAt;
 
-
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<BacklogEntity> backlogs;       // 체크 필요
 

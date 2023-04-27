@@ -25,7 +25,7 @@ public class TaskEntity extends BaseEntity {
     private String title;
 
     @Column(nullable = true, updatable = true)
-    private int story_progress;
+    private Integer story_progress;
 
     @Column(nullable = true, updatable = true, length = 255)
     private String description;
@@ -45,9 +45,9 @@ public class TaskEntity extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "project_seq", referencedColumnName = "seq")
-    private ProjectEntity projectEntity;
+    private ProjectEntity project;
 
     @ManyToOne
     @JoinColumn(name = "backlog_seq", referencedColumnName = "seq")
-    private BacklogEntity backlogEntity;
+    private BacklogEntity backlog;
 }
