@@ -1,37 +1,45 @@
 package com.agile.demo.biz.project;
 
 import com.agile.demo.biz.backlog.BacklogEntity;
-import com.agile.demo.biz.project.account.AccountProjectEntity;
 import com.agile.demo.biz.task.TaskEntity;
-import com.agile.demo.core.base.BaseEntity;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@EqualsAndHashCode(callSuper = true)
+@Table(name = "NProject")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 
-public class ProjectEntity extends BaseEntity{
+public class ProjectEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="np_seq", nullable = false, length = 25, unique = true)
+    private long np_seq;
 
     @Column(nullable = false, updatable = true, length = 100)
-    private String title;
+    private String project_title;
 
     @Column(nullable = true, updatable = true)
-    private LocalDateTime endAt;
+    private String project_assign;
 
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<BacklogEntity> backlogs;       // 체크 필요
 
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<TaskEntity> tasks;
+    @OneToMany(cascade = CascadeType.REMOVE)
+    private List<TaskEntity> taskentity;
 
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<AccountProjectEntity> accountProjects;
+    public static ProjectEntity valueOf(String value) { // 추가해서 backlog create 테스트 성공함
+        Long np_seq = Long.valueOf(value);
+        return ProjectEntity.builder().np_seq(np_seq).build();
+    }
 
 }

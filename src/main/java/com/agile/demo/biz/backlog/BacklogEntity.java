@@ -1,21 +1,23 @@
 package com.agile.demo.biz.backlog;
-
 import com.agile.demo.biz.project.ProjectEntity;
-import com.agile.demo.biz.task.TaskEntity;
-import com.agile.demo.core.base.BaseEntity;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.List;
 
 @Entity
-@EqualsAndHashCode(callSuper = true)
+@Table(name = "NBacklog")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class BacklogEntity extends BaseEntity{
+public class BacklogEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="nb_seq", nullable = false, length = 25, unique = true)
+    private Long nb_seq;
 
     @Column(nullable = false, updatable = true, length = 100)
     private String title;
@@ -26,9 +28,11 @@ public class BacklogEntity extends BaseEntity{
     @Column(nullable = true, updatable = true, length = 255)
     private String description;
 
-    @Column(nullable = true, updatable = true)
-    private Long assign;
+    @ManyToOne
+    @JoinColumn(name = "np_seq", insertable = false, updatable = false)
+    private ProjectEntity project;
 
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<TaskEntity> tasks;
+    public void setProject(ProjectEntity project) {
+        this.project = project;
+    }
 }
