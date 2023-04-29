@@ -25,7 +25,7 @@ public class AccountService {
         accountEntity.setName(accountDto.getName());
         accountEntity.setPassword(accountDto.getPassword());
         accountEntity.setPhone(accountDto.getPhone());
-        accountEntity.setRole(accountDto.getRole());
+        //accountEntity.setRole(accountDto.getRole());
         accountEntity.setEmail(accountDto.getEmail());
 
         return accountRepository.save(accountEntity);

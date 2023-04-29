@@ -41,6 +41,9 @@ public class AccountController {
         AccountDto accountDto = convertToDto(accountService.getAccountById(userId));
         return ResponseEntity.ok(accountDto);
     }
+    
+    // update 하는 내용 추가 필요
+
 
     @DeleteMapping("/account/{userId}")
     public void deleteAccount(@PathVariable String userId){

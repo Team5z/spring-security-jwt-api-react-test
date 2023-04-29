@@ -17,7 +17,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AccountProjectEntity extends BaseEntity { // 복합키라서 implements Serializable
+public class AccountProjectEntity extends BaseEntity { // 어떤 사람이 어떤 프로젝트에 가입했는지를 유일하게 아는 클래스, entity
+    @Id
+    private Long seq;
 
     @OneToOne
     @JoinColumn (name="account_seq", referencedColumnName="userId") // 삭제하면 같이 삭제되는 부분추가
