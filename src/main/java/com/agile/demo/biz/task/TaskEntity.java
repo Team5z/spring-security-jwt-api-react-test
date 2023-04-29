@@ -47,6 +47,10 @@ public class TaskEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime update_data;
 
+    // deadline 추가하기 - drop 형식으로 보이도록할 예정
+    
+    
+    
     @Column(nullable = false, updatable = true)
     private Long presenter;
 

@@ -3,10 +3,15 @@ package com.agile.demo.biz.account;
 import com.agile.demo.biz.backlog.BacklogDto;
 import com.agile.demo.biz.backlog.BacklogEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountService {
@@ -41,6 +46,22 @@ public class AccountService {
             accountDtos.add(accountDto);
         }
         return accountDtos;
+    }
+
+    public AccountEntity getAccountById(String userId) {
+        // np_seq 값으로 프로젝트를 조회합니다.
+        return accountRepository.findByUserId(userId)
+                .get();
+    }
+
+    public void deleteAccount(String userId){
+        Optional<AccountEntity> accountEntity = accountRepository.findByUserId(userId);
+        if (!accountEntity.isPresent()) {
+            throw new EntityNotFoundException("Account not found with id " + userId);
+        }
+
+        // 백로그 삭제
+        accountRepository.deleteByUserId(userId);
     }
 
 }
