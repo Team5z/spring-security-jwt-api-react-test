@@ -16,9 +16,9 @@ import java.net.URI;
 @RequestMapping("/account")
 public class AccountController {
 
-    @Autowired
-    private AccountService accountService;
-
+//    @Autowired
+//    private AccountService accountService;
+//
 //    @PostMapping("/acount") // 백로그 생성하기
 //    public ResponseEntity<?> createAccount(@RequestBody AccountDto accountDto) {
 //        AccountEntity accountEntity = accountService.createAccount(accountDto);
