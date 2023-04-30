@@ -11,6 +11,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -47,9 +48,21 @@ public class TaskEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime update_data;
 
-    // deadline 추가하기 - drop 형식으로 보이도록할 예정
-    
-    
+    @PrePersist
+    public void setDate() {
+        this.setCreate_date(LocalDateTime.now());
+        this.setUpdate_data(LocalDateTime.now());
+    }
+
+    @PreUpdate
+    public void modifiedDate() {
+        this.setUpdate_data(LocalDateTime.now());
+    }
+
+    // deadline 추가하기 - dropdown 형식으로 보이도록할 예정
+    @Column(nullable = true, updatable = true)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    private LocalDate deadline;
     
     @Column(nullable = false, updatable = true)
     private Long presenter;

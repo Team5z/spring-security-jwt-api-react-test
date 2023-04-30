@@ -6,7 +6,9 @@ import com.agile.demo.biz.project.ProjectEntity;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -20,11 +22,11 @@ public class TaskDto {
 
     private String description;
 
-    //private Long assign;
-
     private LocalDateTime create_date;
 
-    private LocalDateTime update_data;
+    private LocalDateTime update_date;
+
+    private LocalDate deadline;
 
     private Long presenter;
 
@@ -35,4 +37,10 @@ public class TaskDto {
     private ProjectEntity projectEntity;
 
     private BacklogEntity backlogEntity;
+
+    public void setDeadline(String deadline) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.deadline = LocalDate.parse(deadline, formatter);
+    }
+
 }

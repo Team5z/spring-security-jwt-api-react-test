@@ -15,32 +15,35 @@ import java.util.Optional;
 @Service
 public class AccountProjectService {
 
-    @Autowired
-    private AccountProjectRepository accountProjectRepository;
-    @Autowired
-    private AccountRepository accountRepository;
-    @Autowired
-    private ProjectRepository projectRepository;
+//    @Autowired
+//    private AccountProjectRepository accountProjectRepository;
+//    @Autowired
+//    private AccountRepository accountRepository;
+//    @Autowired
+//    private ProjectRepository projectRepository;
+
+    // 지금 이렇게 사용하면 Account와 Project의 내용이 훼손 위험이 있음
+    // 깊은 복사를 사용?
 
     // 생성
     // 1. 프로젝트 생성시 추가
     // 2. 프로젝트에 초대 받은 경우 추가
-    public void saveAccountToProject(String userId, Long projectId) {
-        Optional<AccountEntity> accountEntity = accountRepository.findByUserId(userId);
-        if (!accountEntity.isPresent()) {
-            throw new EntityNotFoundException("Account not found with id " + userId);
-        }
-
-        Optional<ProjectEntity> projectEntity = projectRepository.findById(projectId);
-        if (!projectEntity.isPresent()) {
-            throw new EntityNotFoundException("Project not found with id " + projectId);
-        }
-
-        AccountProjectEntity accountProjectEntity = new AccountProjectEntity();
-        accountProjectEntity.setAccounts(accountEntity.get());
-        accountProjectEntity.setProjectS(projectEntity.get());
-        accountProjectRepository.save(accountProjectEntity);
-    }
+//    public void saveAccountToProject(String userId, Long projectId) {
+//        Optional<AccountEntity> accountEntity = accountRepository.findByUserId(userId);
+//        if (!accountEntity.isPresent()) {
+//            throw new EntityNotFoundException("Account not found with id " + userId);
+//        }
+//
+//        Optional<ProjectEntity> projectEntity = projectRepository.findById(projectId);
+//        if (!projectEntity.isPresent()) {
+//            throw new EntityNotFoundException("Project not found with id " + projectId);
+//        }
+//
+//        AccountProjectEntity accountProjectEntity = new AccountProjectEntity();
+//        accountProjectEntity.setAccounts(accountEntity.get());
+//        accountProjectEntity.setProjectS(projectEntity.get());
+//        accountProjectRepository.save(accountProjectEntity);
+//    }
 
     //삭제하는 부분
     // 1. 계정 삭제, 프로젝트 탈퇴 - 개인 정보만 삭제하는 경우

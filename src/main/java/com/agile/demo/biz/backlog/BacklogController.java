@@ -14,31 +14,31 @@ public class BacklogController {
     @Autowired
     private BacklogService backlogService;
 
-    @PostMapping("/backlog") // 백로그 생성하기
+    @PostMapping// 백로그 생성하기
     public ResponseEntity<?> createProject(@RequestBody BacklogDto backlogDto) {
         BacklogEntity backlogEntity = backlogService.createBacklog(backlogDto);
 
         return ResponseEntity.created(URI.create("/backlog/" + backlogEntity.getNb_seq())).build();
     }
 
-    @GetMapping("/backlogs") // 백로그 출력하기 - 전체
+    @GetMapping // 백로그 출력하기 - 전체
     public List<BacklogDto> getAllBacklog() {
         return backlogService.getAllBacklog();
     }
 
-    @GetMapping("/backlogs/{nb_seq}") // 백로그 출력 - 한개 확대시
+    @GetMapping("/{nb_seq}") // 백로그 출력 - 한개 확대시
     public ResponseEntity<BacklogDto> getOneBacklog(@PathVariable long nb_seq) {
         BacklogDto backlogDto = convertToDto(backlogService.getBacklogById(nb_seq));
         return ResponseEntity.ok(backlogDto);
     }
 
-    @PutMapping("/backlog/{nb_seq}")
+    @PutMapping("{nb_seq}")
     public ResponseEntity<?> updateBacklog(@PathVariable long nb_seq, @RequestBody BacklogDto backlogDto) {
         BacklogEntity backlogEntity = backlogService.updateBacklog(nb_seq, backlogDto);
         return ResponseEntity.ok(convertToDto(backlogEntity));
     }
 
-    @DeleteMapping("/backlog/{nb_seq}")
+    @DeleteMapping("/{nb_seq}")
     public void deleteProject(@PathVariable long nb_seq){
         backlogService.deleteBacklog(nb_seq);
     }

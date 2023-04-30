@@ -14,30 +14,31 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
-    @PostMapping("/project")
+    @PostMapping
     public ResponseEntity<?> createProject(@RequestBody ProjectDto projectDto) {
         ProjectEntity projectEntity = projectService.createProject(projectDto);
         return ResponseEntity.created(URI.create("/projects/" + projectEntity.getNp_seq())).build();
     }
 
-    @GetMapping("/projects")
+    @GetMapping
     public List<ProjectDto> getAllProjects() {
         return projectService.getAllProjects();
     }
 
-    @GetMapping("/project/{np_seq}")
+    @GetMapping("{np_seq}")
     public ResponseEntity<ProjectDto> getProjectById(@PathVariable long np_seq) {
         ProjectDto projectDto = convertToDto(projectService.getProjectById(np_seq));
         return ResponseEntity.ok(projectDto);
     }
+
     // 특정 값을의 내용을 수정
-    @PutMapping("/project/{np_seq}")
+    @PutMapping("{np_seq}")
     public ResponseEntity<?> updateProject(@PathVariable long np_seq, @RequestBody ProjectDto projectDto) {
         ProjectEntity projectEntity = projectService.updateProject(np_seq, projectDto);
         return ResponseEntity.ok(convertToDto(projectEntity));
     }
 
-    @DeleteMapping("project/{np_seq}")
+    @DeleteMapping("{np_seq}")
     public void deleteProject(@PathVariable long np_seq){
         projectService.deleteProject(np_seq);
     }

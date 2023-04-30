@@ -8,11 +8,12 @@ import java.util.Optional;
 @Repository
 public interface AccountProjectRepository extends JpaRepository<AccountProjectEntity, Long> {
 
-    Optional<AccountProjectEntity> findByUserId(String userId);
-
-    Optional<AccountProjectEntity> findByNpSeq(Long np_seq);
-
-    Optional<AccountProjectEntity> deleteByUserId(String userId);
-
-    Optional<AccountProjectEntity> deleteByNpSeq(Long np_seq);
+    // 여기서 오류가 발생하는 이유도 찾기
+//    Optional<AccountProjectEntity> findByUserId(String account_seq);
+//
+//    Optional<AccountProjectEntity> findByNpSeq(Long np_seq);
+//
+//    Optional<AccountProjectEntity> deleteByUserId(String userId);
+//
+//    Optional<AccountProjectEntity> deleteByNpSeq(Long np_seq);
 }

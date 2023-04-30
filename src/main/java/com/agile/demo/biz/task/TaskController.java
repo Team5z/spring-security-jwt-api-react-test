@@ -13,35 +13,35 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-    @PostMapping("/task")
+    @PostMapping
     public ResponseEntity<?> createTask(@RequestBody TaskDto taskDto) {
         TaskEntity taskEntity = taskService.createTask(taskDto);
         return ResponseEntity.created(URI.create("/task/" + taskEntity.getNt_seq())).build();
     }
 
-    @GetMapping("/tasks")
+    @GetMapping
         public List<TaskDto> getAllTask() {
         return taskService.getAllTasks();
     }
 
-    @DeleteMapping("task/{nt_seq}")
+    @DeleteMapping("{nt_seq}")
     public void deleteTask(@PathVariable long nt_seq){
         taskService.deleteTask(nt_seq);
     }
 
-    @GetMapping("/tasks/{np_seq}") // 태스크 출력하기 - 프로젝트별
+    @GetMapping("{np_seq}") // 태스크 출력하기 - 프로젝트별
     public ResponseEntity<TaskDto> getProjectIdTask(@PathVariable long np_seq) {
         TaskDto taskDto = convertToDto(taskService.getTaskById(np_seq));
         return ResponseEntity.ok(taskDto);
     }
 
-    @GetMapping("/tasks/{nt_seq}") // 태스크 출력하기 - 1개만
+    @GetMapping("{nt_seq}") // 태스크 출력하기 - 1개만
     public ResponseEntity<TaskDto> getIdTask(@PathVariable long nt_seq) {
         TaskDto taskDto = convertToDto(taskService.getTaskById(nt_seq));
         return ResponseEntity.ok(taskDto);
     }
 
-    @PutMapping("/task/{nt_seq}")
+    @PutMapping("{nt_seq}") // 테스크 - 정보수정
     public ResponseEntity<?> updateTask(@PathVariable long nt_seq, @RequestBody TaskDto taskDto) {
         TaskEntity taskEntity = taskService.updateTask(nt_seq, taskDto);
         return ResponseEntity.ok(convertToDto(taskEntity));
@@ -56,7 +56,7 @@ public class TaskController {
         taskDto.setPresenter(taskEntity.getPresenter());
         taskDto.setManager(taskEntity.getManager());
         taskDto.setCreate_date(taskEntity.getCreate_date());
-        taskDto.setUpdate_data(taskEntity.getUpdate_data());
+        taskDto.setUpdate_date(taskEntity.getUpdate_data());
         taskDto.setStory_progress(taskEntity.getStory_progress());
         //taskDto.setProjectEntity(taskEntity.getProjectEntity());
 

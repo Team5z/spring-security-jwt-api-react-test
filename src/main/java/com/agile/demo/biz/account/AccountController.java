@@ -16,8 +16,9 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
+    // 구글에서 정보 받아와서 작업 하는 이유로 -> 잠시 멈추기
     // 계정 생성시 - 정보 저장, 동일한 id로 가입할 수 없음
-    @PostMapping("/account")
+    @PostMapping
     public ResponseEntity<?> createAccount(@RequestBody AccountDto AccountDto) {
         // 미리 동일한 id가 있는지 확인하는 로직이 필요할지? - 동일 아이디 존재 여부 확인 안하면 넣을때 오류가 발생함!
         // => 동일한 id가 있으면 아이디가 존재한다고 ㄱㄱ
@@ -31,12 +32,12 @@ public class AccountController {
         return ResponseEntity.created(URI.create("/account/" + accountEntity.getUserId())).build();
     }
 
-    @GetMapping("/account") // Account의 전체 내용 출력
+    @GetMapping // Account의 전체 내용 출력
     public List<AccountDto> getAllBacklog() {
         return accountService.getAllAccounts();
     }
 
-    @GetMapping("/account/{userId}") // Account의 전체 내용 출력
+    @GetMapping("{userId}") // Account의 전체 내용 출력
     public ResponseEntity<AccountDto> getUserIdAccount(@PathVariable String userId) {
         AccountDto accountDto = convertToDto(accountService.getAccountById(userId));
         return ResponseEntity.ok(accountDto);
@@ -45,7 +46,7 @@ public class AccountController {
     // update 하는 내용 추가 필요
 
 
-    @DeleteMapping("/account/{userId}")
+    @DeleteMapping("{userId}")
     public void deleteAccount(@PathVariable String userId){
         accountService.deleteAccount(userId);
     }

@@ -14,21 +14,15 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
-//    public ProjectEntity createTask(TaskDto taskDto) {
-//        TaskEntity taskEntity = new TaskEntity();
-//        project.setProject_title(projectDto.getProject_title());
-//        project.setProject_assign(projectDto.getProject_assign());
-//        return projectRepository.save(project);
-//    }
-
     public TaskEntity createTask(TaskDto taskDto) {
         TaskEntity taskEntity = new TaskEntity();
         taskEntity.setNt_seq(taskDto.getNt_seq());
         taskEntity.setTitle(taskDto.getTitle());
         taskEntity.setStory_progress(taskDto.getStory_progress());
         taskEntity.setDescription(taskDto.getDescription());
-        taskEntity.setCreate_date(taskDto.getCreate_date()); // timestamp로 시간 넣기 - 여기서
-        taskEntity.setUpdate_data(taskDto.getUpdate_data()); // timestamp로 시간 넣기 - 여기서
+        taskEntity.setCreate_date(taskDto.getCreate_date()); // 현재 시간을 작성
+        taskEntity.setUpdate_data(taskDto.getUpdate_date()); // 현재 시간을 작성
+        taskEntity.setDeadline(taskDto.getDeadline()); // 작성자가 원하는 시간으로
         taskEntity.setPresenter(taskDto.getPresenter());
         taskEntity.setManager(taskDto.getManager());
 
@@ -46,7 +40,7 @@ public class TaskService {
             taskDto.setDescription(taskEntity.getDescription());
             taskDto.setStory_progress(taskEntity.getStory_progress());
             taskDto.setCreate_date(taskEntity.getCreate_date());
-            taskDto.setUpdate_data(taskEntity.getUpdate_data());
+            taskDto.setUpdate_date(taskEntity.getUpdate_data());
             taskDto.setPresenter(taskEntity.getPresenter());
             taskDto.setManager(taskEntity.getManager());
 
@@ -90,7 +84,7 @@ public class TaskService {
         taskEntity.setBacklogEntity(taskDto.getBacklogEntity());
         taskEntity.setPresenter(taskDto.getPresenter());
         taskEntity.setManager(taskDto.getManager());
-        taskEntity.setUpdate_data(taskDto.getUpdate_data());
+        taskEntity.setUpdate_data(taskDto.getUpdate_date());
         taskEntity.setStory_progress(taskDto.getStory_progress());
         taskEntity.setAccount(taskDto.getAccount());
 
