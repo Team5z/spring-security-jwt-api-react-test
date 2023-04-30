@@ -30,18 +30,19 @@ public class AccountProjectService {
     // 1. 프로젝트 생성시 추가
     // 2. 프로젝트에 초대 받은 경우 추가
     public AccountProjectEntity createAccountProject(AccountProjectDto accountProjectDto) {
-//        Optional<AccountEntity> accountEntity = accountRepository.findByUserId(accountProjectDto.getAccounts().getUserId());
-//        if (!accountEntity.isPresent()) {
-//            throw new EntityNotFoundException("Account not found with id " + accountProjectDto.getAccounts().getUserId()); // id를 찾을 수 없는 경우 발생
-//        }
-//
-//        Optional<ProjectEntity> projectEntity = projectRepository.findById(accountProjectDto.getProjectS().getNp_seq());
-//        if (!projectEntity.isPresent()) {
-//            throw new EntityNotFoundException("Project not found with id " + accountProjectDto.getProjectS().getNp_seq());
-//        }
 
         System.out.println(accountProjectDto.getAccounts()); // AccountEntity(userId=sd1, password=null, role=null, name=null, phone=null, email=null)
         System.out.println(accountProjectDto.getProjects()); // null // projects의 내용은 안 들어감 - Dto의 오타
+
+        Optional<AccountEntity> accountEntity = accountRepository.findByUserId(accountProjectDto.getAccounts().getUserId());
+        if (!accountEntity.isPresent()) {
+            throw new EntityNotFoundException("Account not found with id " + accountProjectDto.getAccounts().getUserId()); // id를 찾을 수 없는 경우 발생
+        }
+
+        Optional<ProjectEntity> projectEntity = projectRepository.findById(accountProjectDto.getProjects().getNp_seq());
+        if (!projectEntity.isPresent()) {
+            throw new EntityNotFoundException("Project not found with id " + accountProjectDto.getProjects().getNp_seq());
+        }
 
         AccountProjectEntity accountProjectEntity = new AccountProjectEntity();
         accountProjectEntity.setAccounts(accountProjectDto.getAccounts());

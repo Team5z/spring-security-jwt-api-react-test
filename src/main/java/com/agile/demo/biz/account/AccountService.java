@@ -60,7 +60,7 @@ public class AccountService {
             throw new EntityNotFoundException("Account not found with id " + userId);
         }
 
-        // 백로그 삭제
+        // account 삭제
         accountRepository.deleteByUserId(userId);
     }
 
