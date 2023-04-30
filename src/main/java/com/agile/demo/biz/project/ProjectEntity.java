@@ -20,7 +20,7 @@ import java.util.List;
 public class ProjectEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="np_seq", nullable = false, length = 25, unique = true)
     private long np_seq;
 

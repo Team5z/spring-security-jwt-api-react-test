@@ -27,6 +27,6 @@ public class AccountProjectEntity extends BaseEntity { // 어떤 사람이 어�
 
     @ManyToOne
     @JoinColumn (name="project_seq", referencedColumnName="np_seq") // 삭제하면 같이 삭제되는 부분추가
-    private ProjectEntity projectS;
+    private ProjectEntity projects;
 }
 

@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Builder
 public class BacklogEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="nb_seq", nullable = false, length = 25, unique = true)
     private Long nb_seq;
 

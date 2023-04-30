@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @Builder
 public class TaskEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="nt_seq", nullable = false, length = 25, unique = true)
     private Long nt_seq;
 
