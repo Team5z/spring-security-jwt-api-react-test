@@ -21,6 +21,8 @@ public class AccountProjectEntity extends BaseEntity { // 어떤 사람이 어�
     @Id
     private Long seq;
 
+    // 한명의 AccountEntity가 여러개의 ProjectEntity를 가질 수 있다는 의미
+    
     @OneToOne
     @JoinColumn (name="account_seq", referencedColumnName="userId") // 삭제하면 같이 삭제되는 부분추가
     private AccountEntity accounts;

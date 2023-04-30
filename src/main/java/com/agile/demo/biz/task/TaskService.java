@@ -41,6 +41,7 @@ public class TaskService {
             taskDto.setStory_progress(taskEntity.getStory_progress());
             taskDto.setCreate_date(taskEntity.getCreate_date());
             taskDto.setUpdate_date(taskEntity.getUpdate_data());
+            taskDto.setDeadline(taskEntity.getDeadline().toString());
             taskDto.setPresenter(taskEntity.getPresenter());
             taskDto.setManager(taskEntity.getManager());
 
@@ -87,6 +88,7 @@ public class TaskService {
         taskEntity.setUpdate_data(taskDto.getUpdate_date());
         taskEntity.setStory_progress(taskDto.getStory_progress());
         taskEntity.setAccount(taskDto.getAccount());
+        taskEntity.setDeadline(taskDto.getDeadline());
 
         // 업데이트된 태스크를 저장하고 반환합니다.
         return taskRepository.save(taskEntity);

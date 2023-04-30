@@ -14,14 +14,6 @@ import java.util.Optional;
         @Autowired
         private ProjectRepository projectRepository;
 
-        public ProjectEntity saveProject(ProjectDto projectDto) {
-            ProjectEntity projectEntity = new ProjectEntity();
-            projectEntity.setProject_title(projectDto.getProject_title());
-            projectEntity.setProject_assign(projectDto.getProject_assign());
-            // BacklogEntity와 TaskEntity는 cascade 옵션으로 인해 자동 저장됩니다.
-            return projectRepository.save(projectEntity);
-        }
-
         public List<ProjectDto> getAllProjects() { // entity -> dto로 값을 넣는 과정
             List<ProjectEntity> projectEntities = projectRepository.findAll();
             List<ProjectDto> projectDtos = new ArrayList<>();
@@ -33,10 +25,6 @@ import java.util.Optional;
                 projectDtos.add(projectDto);
             }
             return projectDtos;
-        }
-
-        public void deleteProjectById(Long np_seq) {
-            projectRepository.deleteById(np_seq);
         }
 
         public ProjectEntity createProject(ProjectDto projectDto) {

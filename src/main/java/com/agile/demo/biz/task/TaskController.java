@@ -58,6 +58,7 @@ public class TaskController {
         taskDto.setCreate_date(taskEntity.getCreate_date());
         taskDto.setUpdate_date(taskEntity.getUpdate_data());
         taskDto.setStory_progress(taskEntity.getStory_progress());
+        taskDto.setDeadline(taskEntity.getDeadline().toString());
         //taskDto.setProjectEntity(taskEntity.getProjectEntity());
 
         return taskDto;

@@ -30,13 +30,10 @@ public class TaskEntity {
     private String title;
 
     @Column(nullable = true, updatable = true)
-    private int story_progress;
+    private Integer story_progress;
 
     @Column(nullable = true, updatable = true, length = 255)
     private String description;
-
-//    @Column(nullable = true, updatable = true)
-//    private Long assign;
 
     @Column(name = "createDate", nullable = true, insertable = true, updatable = false)
     @CreatedDate

@@ -12,7 +12,7 @@ public class BacklogDto {
 
     private String title;
 
-    private int story_progress;
+    private Integer story_progress;
 
     private String description;
 

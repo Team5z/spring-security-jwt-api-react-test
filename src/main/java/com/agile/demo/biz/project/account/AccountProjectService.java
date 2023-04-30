@@ -7,9 +7,11 @@ import com.agile.demo.biz.backlog.BacklogEntity;
 import com.agile.demo.biz.project.ProjectEntity;
 import com.agile.demo.biz.project.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.net.URI;
 import java.util.Optional;
 
 @Service
@@ -27,21 +29,22 @@ public class AccountProjectService {
     // 생성
     // 1. 프로젝트 생성시 추가
     // 2. 프로젝트에 초대 받은 경우 추가
-    public void saveAccountToProject(String userId, Long projectId) {
-        Optional<AccountEntity> accountEntity = accountRepository.findByUserId(userId);
+    public AccountProjectEntity createAccountProject(AccountProjectDto accountProjectDto) {
+        Optional<AccountEntity> accountEntity = accountRepository.findByUserId(accountProjectDto.getAccounts().getUserId());
         if (!accountEntity.isPresent()) {
-            throw new EntityNotFoundException("Account not found with id " + userId);
+            throw new EntityNotFoundException("Account not found with id " + accountProjectDto.getAccounts().getUserId()); // id를 찾을 수 없는 경우 발생
         }
 
-        Optional<ProjectEntity> projectEntity = projectRepository.findById(projectId);
+        Optional<ProjectEntity> projectEntity = projectRepository.findById(accountProjectDto.getProjectS().getNp_seq());
         if (!projectEntity.isPresent()) {
-            throw new EntityNotFoundException("Project not found with id " + projectId);
+            throw new EntityNotFoundException("Project not found with id " + accountProjectDto.getProjectS().getNp_seq());
         }
 
         AccountProjectEntity accountProjectEntity = new AccountProjectEntity();
         accountProjectEntity.setAccounts(accountEntity.get());
         accountProjectEntity.setProjects(projectEntity.get());
-        accountProjectRepository.save(accountProjectEntity);
+        return     accountProjectRepository.save(accountProjectEntity);
+
     }
 
     //삭제하는 부분

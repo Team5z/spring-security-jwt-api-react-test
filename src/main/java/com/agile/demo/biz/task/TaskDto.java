@@ -9,6 +9,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 @Getter
 @Setter
@@ -18,7 +19,7 @@ public class TaskDto {
 
     private String title;
 
-    private int story_progress;
+    private Integer story_progress;
 
     private String description;
 
@@ -39,8 +40,14 @@ public class TaskDto {
     private BacklogEntity backlogEntity;
 
     public void setDeadline(String deadline) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        this.deadline = LocalDate.parse(deadline, formatter);
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            this.deadline = LocalDate.parse(deadline, formatter);
+        } catch (DateTimeParseException e) {
+            // 예외 처리 코드 추가
+            System.out.println("잘못된 날짜 형식입니다.");
+            e.printStackTrace();
+        }
     }
 
 }

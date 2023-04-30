@@ -23,7 +23,7 @@ public class BacklogEntity {
     private String title;
 
     @Column(nullable = true, updatable = true)
-    private int story_progress;
+    private Integer story_progress;
 
     @Column(nullable = true, updatable = true, length = 255)
     private String description;
