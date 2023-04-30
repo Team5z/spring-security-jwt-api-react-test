@@ -13,6 +13,7 @@ import java.util.Optional;
 
         @Autowired
         private ProjectRepository projectRepository;
+        
 
         public List<ProjectDto> getAllProjects() { // entity -> dto로 값을 넣는 과정
             List<ProjectEntity> projectEntities = projectRepository.findAll();
@@ -25,6 +26,10 @@ import java.util.Optional;
                 projectDtos.add(projectDto);
             }
             return projectDtos;
+        }
+
+        public void deleteProjectById(Long np_seq) {
+            projectRepository.deleteById(np_seq);
         }
 
         public ProjectEntity createProject(ProjectDto projectDto) {

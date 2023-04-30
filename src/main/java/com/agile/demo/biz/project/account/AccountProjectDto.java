@@ -14,5 +14,5 @@ import javax.persistence.OneToOne;
 public class AccountProjectDto {
     private AccountEntity accounts;
 
-    private ProjectEntity projectS;
+    private ProjectEntity projects;
 }

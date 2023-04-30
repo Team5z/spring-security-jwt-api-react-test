@@ -20,7 +20,7 @@ public class AccountProjectController {
     public ResponseEntity<?> createProject(@RequestBody AccountProjectDto accountProjectDto) {
         AccountProjectEntity accountProjectEntity = accountProjectService.createAccountProject(accountProjectDto);
 
-        return ResponseEntity.created(URI.create("/backlog/" + accountProjectEntity.getSeq())).build();
+        return ResponseEntity.created(URI.create("/accountProject/" + accountProjectEntity.getSeq())).build();
     }
 
 //    @DeleteMapping("{userId}")
