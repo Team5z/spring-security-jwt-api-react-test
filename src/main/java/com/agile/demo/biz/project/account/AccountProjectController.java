@@ -26,7 +26,7 @@ public class AccountProjectController {
 
     // 내용이 잘들어갔는지 확인용
     @GetMapping // 백로그 출력하기 - 전체
-    public List<AccountProjectDto> getAllAccountProject() {
+    public List<AccountProjectEntity> getAllAccountProject() {
         return accountProjectService.getAllaccountProject();
     }
 

@@ -58,16 +58,20 @@ public class AccountProjectService {
 
     }
 
-    public List<AccountProjectDto> getAllaccountProject() {
-        List<AccountProjectEntity> accountProjectEntities = accountProjectRepository.findAll();
-        List<AccountProjectDto> accountProjectDtos = new ArrayList<>();
-        for (AccountProjectEntity accountProjectEntity : accountProjectEntities) {
-            AccountProjectDto accountProjectDto = new AccountProjectDto();
-            accountProjectDto.setAccounts(accountProjectEntity.getAccounts());
-            accountProjectDto.setProjects(accountProjectEntity.getProjects());
-            accountProjectDtos.add(accountProjectDto);
-        }
-        return accountProjectDtos;
+//    public List<AccountProjectDto> getAllaccountProject() {
+//        List<AccountProjectEntity> accountProjectEntities = accountProjectRepository.findAll();
+//        List<AccountProjectDto> accountProjectDtos = new ArrayList<>();
+//        for (AccountProjectEntity accountProjectEntity : accountProjectEntities) {
+//            AccountProjectDto accountProjectDto = new AccountProjectDto();
+//            accountProjectDto.setAccounts(accountProjectEntity.getAccounts());
+//            accountProjectDto.setProjects(accountProjectEntity.getProjects());
+//            accountProjectDtos.add(accountProjectDto);
+//        }
+//        return accountProjectDtos;
+//    }
+
+    public List<AccountProjectEntity> getAllaccountProject() {
+        return accountProjectRepository.findAll();
     }
 
     //삭제하는 부분
