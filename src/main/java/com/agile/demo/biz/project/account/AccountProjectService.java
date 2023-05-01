@@ -3,6 +3,7 @@ package com.agile.demo.biz.project.account;
 
 import com.agile.demo.biz.account.AccountEntity;
 import com.agile.demo.biz.account.AccountRepository;
+import com.agile.demo.biz.backlog.BacklogDto;
 import com.agile.demo.biz.backlog.BacklogEntity;
 import com.agile.demo.biz.project.ProjectEntity;
 import com.agile.demo.biz.project.ProjectRepository;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,6 +56,18 @@ public class AccountProjectService {
         accountProjectEntity.setProjects(accountProjectDto.getProjects());
         return     accountProjectRepository.save(accountProjectEntity);
 
+    }
+
+    public List<AccountProjectDto> getAllaccountProject() {
+        List<AccountProjectEntity> accountProjectEntities = accountProjectRepository.findAll();
+        List<AccountProjectDto> accountProjectDtos = new ArrayList<>();
+        for (AccountProjectEntity accountProjectEntity : accountProjectEntities) {
+            AccountProjectDto accountProjectDto = new AccountProjectDto();
+            accountProjectDto.setAccounts(accountProjectEntity.getAccounts());
+            accountProjectDto.setProjects(accountProjectEntity.getProjects());
+            accountProjectDtos.add(accountProjectDto);
+        }
+        return accountProjectDtos;
     }
 
     //삭제하는 부분

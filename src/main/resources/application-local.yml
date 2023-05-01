@@ -44,3 +44,8 @@ security:
     resource:
       jwt:
         key-value: jwt_key_value
+
+# restart문제를 해결하기 위해서 추가       
+devtools:
+  restart:
+    enabled: false

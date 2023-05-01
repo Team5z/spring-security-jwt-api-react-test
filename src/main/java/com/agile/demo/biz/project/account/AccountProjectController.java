@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/accountproject")
@@ -21,6 +22,12 @@ public class AccountProjectController {
         AccountProjectEntity accountProjectEntity = accountProjectService.createAccountProject(accountProjectDto);
 
         return ResponseEntity.created(URI.create("/accountProject/" + accountProjectEntity.getSeq())).build();
+    }
+
+    // 내용이 잘들어갔는지 확인용
+    @GetMapping // 백로그 출력하기 - 전체
+    public List<AccountProjectDto> getAllAccountProject() {
+        return accountProjectService.getAllaccountProject();
     }
 
 //    @DeleteMapping("{userId}")
