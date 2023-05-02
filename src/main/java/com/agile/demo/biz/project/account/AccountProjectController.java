@@ -32,6 +32,11 @@ public class AccountProjectController {
 
     @DeleteMapping("/{userId}")
     public void deleteAccountProject(@PathVariable String userId){
-        accountProjectService.deleteAccountProject(userId);
+        accountProjectService.deleteAccountProject_userId(userId);
     }
+
+//    @DeleteMapping("/{np_seq}")
+//    public void deleteAccountProject(@PathVariable Long  np_seq){
+//        accountProjectService.deleteAccountProject_npSeq(np_seq);
+//    }
 }

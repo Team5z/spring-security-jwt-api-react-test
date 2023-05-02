@@ -80,7 +80,7 @@ public class AccountProjectService {
     //삭제하는 부분
     // 1. 계정 삭제, 프로젝트 탈퇴 - 개인 정보만 삭제하는 경우
     @Transactional
-    public void deleteAccountProject(String userId) {
+    public void deleteAccountProject_userId(String userId) {
         // 프로젝트가 존재하는지 확인
 
         Optional<AccountProjectEntity> accountProjectEntity = accountProjectRepository.findByAccounts_UserId(userId);
@@ -93,6 +93,17 @@ public class AccountProjectService {
     }
 
     // 2. 프로젝트 삭제 - 프로젝트내 속한 사람들의 정보 제거
-
+//    @Transactional
+//    public void deleteAccountProject_npSeq(Long np_seq) {
+//        // 프로젝트가 존재하는지 확인
+//
+//        Optional<AccountProjectEntity> accountProjectEntity = accountProjectRepository.findByProjects_Np_seq(np_seq);
+//        if (!accountProjectEntity.isPresent()) {
+//            throw new EntityNotFoundException("AccountProject not found with id " + np_seq);
+//        }
+//
+//        // 프로젝트 삭제
+//        accountProjectRepository.deleteByProjects_Np_seq(np_seq);
+//    }
 
 }

@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,6 +22,7 @@ import java.util.List;
 public class ProjectEntity {
 
     @Id
+    @JsonManagedReference
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="np_seq", nullable = false, length = 25, unique = true)
     private long np_seq;
@@ -30,7 +33,7 @@ public class ProjectEntity {
     @Column(nullable = true, updatable = true)
     private String project_assign;
 
-
+    @JsonBackReference
     @OneToMany(cascade = CascadeType.REMOVE)
     private List<BacklogEntity> backlogs;       // 체크 필요
 

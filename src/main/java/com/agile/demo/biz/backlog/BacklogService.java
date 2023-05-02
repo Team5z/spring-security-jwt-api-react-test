@@ -1,5 +1,7 @@
 package com.agile.demo.biz.backlog;
 
+import com.agile.demo.biz.project.ProjectEntity;
+import com.agile.demo.biz.project.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +14,25 @@ import java.util.Optional;
 public class BacklogService {
     @Autowired
     private BacklogRepository backlogRepository;
+
+    @Autowired
+    private ProjectRepository projectRepository;
+
     public BacklogEntity createBacklog(BacklogDto backlogDto) {
+
+        System.out.println(backlogDto.getProject());
+
+        Optional<ProjectEntity> projectEntity = projectRepository.findById(backlogDto.getProject().getNp_seq());
+        if (!projectEntity.isPresent()) {
+            throw new EntityNotFoundException("Project not found with id " + backlogDto.getProject().getNp_seq()); // id를 찾을 수 없는 경우 발생
+        }
+
+        backlogDto.setProject(projectEntity.get());
+        System.out.println(backlogDto.getProject().getNp_seq());
+        System.out.println(backlogDto.getProject().getClass());
+
         BacklogEntity backlogEntity = new BacklogEntity();
-        backlogEntity.setProject(backlogDto.getProject()); // 지금 프로젝트의 번호를 넣어야함 - 외래키를 넣음?
+        backlogEntity.setProject(backlogDto.getProject()); // 여기서 insert 안되는 이유 ㅜㅜ
         backlogEntity.setTitle(backlogDto.getTitle());
         backlogEntity.setDescription(backlogDto.getDescription());
         backlogEntity.setStory_progress(backlogDto.getStory_progress());

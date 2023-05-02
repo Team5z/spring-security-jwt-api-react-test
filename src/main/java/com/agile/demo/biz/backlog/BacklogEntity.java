@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import javax.persistence.*;
 
@@ -15,6 +17,7 @@ import javax.persistence.*;
 @Builder
 public class BacklogEntity {
     @Id
+    @JsonManagedReference
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="nb_seq", nullable = false, length = 25, unique = true)
     private Long nb_seq;
@@ -30,6 +33,7 @@ public class BacklogEntity {
 
     @ManyToOne
     @JoinColumn(name = "np_seq", insertable = false, updatable = false)
+    @JsonBackReference
     private ProjectEntity project;
 
 //    public void setProject(ProjectEntity project) {
