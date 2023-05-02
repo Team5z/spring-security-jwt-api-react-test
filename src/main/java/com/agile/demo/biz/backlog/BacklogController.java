@@ -32,13 +32,13 @@ public class BacklogController {
         return ResponseEntity.ok(backlogDto);
     }
 
-    @PutMapping("{nb_seq}")
+    @PutMapping("{nb_seq}") // 백로그 수정
     public ResponseEntity<?> updateBacklog(@PathVariable long nb_seq, @RequestBody BacklogDto backlogDto) {
         BacklogEntity backlogEntity = backlogService.updateBacklog(nb_seq, backlogDto);
         return ResponseEntity.ok(convertToDto(backlogEntity));
     }
 
-    @DeleteMapping("/{nb_seq}")
+    @DeleteMapping("/{nb_seq}") // 백로그 삭제하기
     public void deleteProject(@PathVariable long nb_seq){
         backlogService.deleteBacklog(nb_seq);
     }

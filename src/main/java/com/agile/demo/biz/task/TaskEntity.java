@@ -3,6 +3,7 @@ import com.agile.demo.biz.account.AccountEntity;
 import com.agile.demo.biz.backlog.BacklogEntity;
 import com.agile.demo.biz.project.ProjectEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -76,6 +77,7 @@ public class TaskEntity {
     private ProjectEntity projectEntity;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "nb_seq", insertable = false, unique = true, updatable = false)
     private BacklogEntity backlogEntity;
 }

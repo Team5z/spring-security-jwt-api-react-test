@@ -13,6 +13,7 @@ import java.io.Serializable;
 @Setter
 @Getter
 public class AccountProjectDto implements Serializable {
+
     private AccountEntity accounts;
 
     private ProjectEntity projects;

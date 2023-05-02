@@ -38,7 +38,7 @@ public class AccountProjectService {
     public AccountProjectEntity createAccountProject(AccountProjectDto accountProjectDto) {
 
         System.out.println(accountProjectDto.getAccounts()); // AccountEntity(userId=sd1, password=null, role=null, name=null, phone=null, email=null)
-        System.out.println(accountProjectDto.getProjects()); // null // projects의 내용은 안 들어감 - Dto의 오타
+        System.out.println(accountProjectDto.getProjects()); //
 
         Optional<AccountEntity> accountEntity = accountRepository.findByUserId(accountProjectDto.getAccounts().getUserId());
         if (!accountEntity.isPresent()) {
@@ -93,17 +93,17 @@ public class AccountProjectService {
     }
 
     // 2. 프로젝트 삭제 - 프로젝트내 속한 사람들의 정보 제거
-//    @Transactional
-//    public void deleteAccountProject_npSeq(Long np_seq) {
-//        // 프로젝트가 존재하는지 확인
-//
-//        Optional<AccountProjectEntity> accountProjectEntity = accountProjectRepository.findByProjects_Np_seq(np_seq);
-//        if (!accountProjectEntity.isPresent()) {
-//            throw new EntityNotFoundException("AccountProject not found with id " + np_seq);
-//        }
-//
-//        // 프로젝트 삭제
-//        accountProjectRepository.deleteByProjects_Np_seq(np_seq);
-//    }
+    @Transactional
+    public void deleteAccountProject_npSeq(String userId) {
+        // 프로젝트가 존재하는지 확인
+
+        Optional<AccountProjectEntity> accountProjectEntity = accountProjectRepository.findByAccounts_UserId(userId);
+        if (!accountProjectEntity.isPresent()) {
+            throw new EntityNotFoundException("AccountProject not found with id " + userId);
+        }
+
+        // 프로젝트 삭제
+        accountProjectRepository.deleteByAccounts_UserId(userId);
+    }
 
 }

@@ -8,14 +8,17 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface AccountProjectRepository extends JpaRepository<AccountProjectEntity, Long> {
 
+
     Optional<AccountProjectEntity> findByAccounts_UserId(String userId);
 
     void deleteByAccounts_UserId(String userId);
+
 
 //    Optional<AccountProjectEntity> findByProjects_Np_seq(Long np_seq);
 //
