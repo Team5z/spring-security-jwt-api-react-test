@@ -10,8 +10,11 @@ import com.agile.demo.biz.project.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +79,18 @@ public class AccountProjectService {
 
     //삭제하는 부분
     // 1. 계정 삭제, 프로젝트 탈퇴 - 개인 정보만 삭제하는 경우
+    @Transactional
+    public void deleteAccountProject(String userId) {
+        // 프로젝트가 존재하는지 확인
 
+        Optional<AccountProjectEntity> accountProjectEntity = accountProjectRepository.findByAccounts_UserId(userId);
+        if (!accountProjectEntity.isPresent()) {
+            throw new EntityNotFoundException("AccountProject not found with id " + userId);
+        }
+
+        // 프로젝트 삭제
+        accountProjectRepository.deleteByAccounts_UserId(userId);
+    }
 
     // 2. 프로젝트 삭제 - 프로젝트내 속한 사람들의 정보 제거
 

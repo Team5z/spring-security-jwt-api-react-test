@@ -32,7 +32,7 @@ public class BacklogEntity {
     @JoinColumn(name = "np_seq", insertable = false, updatable = false)
     private ProjectEntity project;
 
-    public void setProject(ProjectEntity project) {
-        this.project = project;
-    }
+//    public void setProject(ProjectEntity project) {
+//        this.project = project;
+//    }
 }

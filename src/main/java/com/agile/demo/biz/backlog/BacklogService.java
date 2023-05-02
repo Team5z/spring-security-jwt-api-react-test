@@ -14,7 +14,7 @@ public class BacklogService {
     private BacklogRepository backlogRepository;
     public BacklogEntity createBacklog(BacklogDto backlogDto) {
         BacklogEntity backlogEntity = new BacklogEntity();
-        backlogEntity.setProject(backlogDto.getProject()); // 지금 프로젝트의 번호를 넣어야함
+        backlogEntity.setProject(backlogDto.getProject()); // 지금 프로젝트의 번호를 넣어야함 - 외래키를 넣음?
         backlogEntity.setTitle(backlogDto.getTitle());
         backlogEntity.setDescription(backlogDto.getDescription());
         backlogEntity.setStory_progress(backlogDto.getStory_progress());

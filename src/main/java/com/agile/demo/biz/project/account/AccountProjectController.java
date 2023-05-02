@@ -17,8 +17,8 @@ public class AccountProjectController {
     @Autowired
     private AccountProjectService accountProjectService;
 
-    @PostMapping// 백로그 생성하기
-    public ResponseEntity<?> createProject(@RequestBody AccountProjectDto accountProjectDto) {
+    @PostMapping// AccountProject 생성하기
+    public ResponseEntity<?> createAccountProject(@RequestBody AccountProjectDto accountProjectDto) {
         AccountProjectEntity accountProjectEntity = accountProjectService.createAccountProject(accountProjectDto);
 
         return ResponseEntity.created(URI.create("/accountProject/" + accountProjectEntity.getSeq())).build();
@@ -30,8 +30,8 @@ public class AccountProjectController {
         return accountProjectService.getAllaccountProject();
     }
 
-//    @DeleteMapping("{userId}")
-//    public void deleteAccount(@PathVariable String userId){
-//        accountProjectService.deleteAccount(userId);
-//    }
+    @DeleteMapping("/{userId}")
+    public void deleteAccountProject(@PathVariable String userId){
+        accountProjectService.deleteAccountProject(userId);
+    }
 }
