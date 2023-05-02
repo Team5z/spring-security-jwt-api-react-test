@@ -61,7 +61,8 @@ public class TaskEntity {
     @Column(nullable = true, updatable = true)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate deadline;
-    
+
+    // accountProjectEntity에서 가져오도록?
     @Column(nullable = false, updatable = true)
     private Long presenter;
 

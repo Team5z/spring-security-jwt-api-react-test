@@ -17,5 +17,6 @@ public class AccountDto implements Serializable {
 
     private String name;
     private String phone;
+
     private String email;
 }

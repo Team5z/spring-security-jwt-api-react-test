@@ -32,6 +32,7 @@ public class AccountService {
     }
 
 
+
     public List<AccountDto> getAllAccounts() {
         List<AccountEntity> accountEntities = accountRepository.findAll();
         List<AccountDto> accountDtos = new ArrayList<>();
