@@ -32,5 +32,6 @@ public class ProjectEntity extends BaseEntity {
     private List<BacklogEntity> backlogs;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "project" , cascade = CascadeType.REMOVE) // project를 삭제하면 같이 삭제
+    @JsonManagedReference
     private List<TaskEntity> tasks;
 }
