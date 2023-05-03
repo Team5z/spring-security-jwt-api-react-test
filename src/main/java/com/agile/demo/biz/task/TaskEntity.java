@@ -76,8 +76,9 @@ public class TaskEntity extends BaseEntity {
     private AccountEntity account;
 
     @ManyToOne
+    //@JsonIgnore
     @JoinColumn(name = "project_seq", referencedColumnName = "seq")
-    private ProjectEntity projectEntity;
+    private ProjectEntity project;
 
     @ManyToOne
     @JsonIgnore

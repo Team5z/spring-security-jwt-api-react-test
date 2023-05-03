@@ -31,6 +31,6 @@ public class ProjectEntity extends BaseEntity {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "project" , cascade = CascadeType.REMOVE) // project를 삭제하면 같이 삭제
     private List<BacklogEntity> backlogs;
 
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "project" , cascade = CascadeType.REMOVE) // project를 삭제하면 같이 삭제
-//    private List<TaskEntity> tasks;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project" , cascade = CascadeType.REMOVE) // project를 삭제하면 같이 삭제
+    private List<TaskEntity> tasks;
 }
