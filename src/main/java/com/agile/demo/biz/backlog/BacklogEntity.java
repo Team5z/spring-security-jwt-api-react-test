@@ -30,9 +30,6 @@ public class BacklogEntity extends BaseEntity {
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "project_seq", referencedColumnName = "seq")
-    private ProjectEntity project;
+    private ProjectEntity project; // ProjectEntity의 mapper by와 이름을 맞춤
 
-//    public void setProject(ProjectEntity project) {
-//        this.project = project;
-//    }
 }

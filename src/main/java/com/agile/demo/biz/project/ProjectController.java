@@ -8,7 +8,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/project")
+@RequestMapping("/projects")
 public class ProjectController {
 
     @Autowired
@@ -26,16 +26,16 @@ public class ProjectController {
     }
 
     @GetMapping("{np_seq}")
-    public ResponseEntity<ProjectDto> getProjectById(@PathVariable long np_seq) {
-        ProjectDto projectDto = convertToDto(projectService.getProjectById(np_seq));
-        return ResponseEntity.ok(projectDto);
+    public ResponseEntity<ProjectEntity> getProjectById(@PathVariable long np_seq) {
+        ProjectEntity projectEntity =projectService.getProjectById(np_seq);
+        return ResponseEntity.ok(projectEntity);
     }
 
     // 특정 값을의 내용을 수정
     @PutMapping("{np_seq}")
     public ResponseEntity<?> updateProject(@PathVariable long np_seq, @RequestBody ProjectDto projectDto) {
         ProjectEntity projectEntity = projectService.updateProject(np_seq, projectDto);
-        return ResponseEntity.ok(convertToDto(projectEntity));
+        return ResponseEntity.ok(projectEntity);
     }
 
     @DeleteMapping("{np_seq}")
@@ -44,11 +44,4 @@ public class ProjectController {
         return ResponseEntity.accepted().build();
     }
 
-    private ProjectDto convertToDto(ProjectEntity projectEntity) {
-        ProjectDto projectDto = new ProjectDto();
-        projectDto.setNp_seq(projectEntity.getSeq());
-        projectDto.setProject_title(projectEntity.getProject_title());
-        projectDto.setProject_assign(projectEntity.getProject_assign());
-        return projectDto;
-    }
 }
