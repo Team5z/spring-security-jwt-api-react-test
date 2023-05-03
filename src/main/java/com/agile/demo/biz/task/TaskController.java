@@ -16,11 +16,11 @@ public class TaskController {
     @PostMapping
     public ResponseEntity<?> createTask(@RequestBody TaskDto taskDto) {
         TaskEntity taskEntity = taskService.createTask(taskDto);
-        return ResponseEntity.created(URI.create("/task/" + taskEntity.getNt_seq())).build();
+        return ResponseEntity.created(URI.create("/task/" + taskEntity.getSeq())).build();
     }
 
     @GetMapping
-        public List<TaskDto> getAllTask() {
+        public List<TaskEntity> getAllTask() {
         return taskService.getAllTasks();
     }
 
@@ -30,37 +30,21 @@ public class TaskController {
     }
 
     @GetMapping("{np_seq}") // 태스크 출력하기 - 프로젝트별
-    public ResponseEntity<TaskDto> getProjectIdTask(@PathVariable long np_seq) {
-        TaskDto taskDto = convertToDto(taskService.getTaskById(np_seq));
-        return ResponseEntity.ok(taskDto);
+    public ResponseEntity<TaskEntity> getProjectIdTask(@PathVariable long np_seq) {
+        TaskEntity taskEntity = taskService.getTaskById(np_seq);
+        return ResponseEntity.ok(taskEntity);
     }
 
     @GetMapping("{nt_seq}") // 태스크 출력하기 - 1개만
-    public ResponseEntity<TaskDto> getIdTask(@PathVariable long nt_seq) {
-        TaskDto taskDto = convertToDto(taskService.getTaskById(nt_seq));
-        return ResponseEntity.ok(taskDto);
+    public ResponseEntity<TaskEntity> getIdTask(@PathVariable long nt_seq) {
+        TaskEntity taskEntity = taskService.getTaskById(nt_seq);
+        return ResponseEntity.ok(taskEntity);
     }
 
     @PutMapping("{nt_seq}") // 테스크 - 정보수정
     public ResponseEntity<?> updateTask(@PathVariable long nt_seq, @RequestBody TaskDto taskDto) {
         TaskEntity taskEntity = taskService.updateTask(nt_seq, taskDto);
-        return ResponseEntity.ok(convertToDto(taskEntity));
+        return ResponseEntity.ok(taskEntity);
     }
 
-    private TaskDto convertToDto(TaskEntity taskEntity) {
-        TaskDto taskDto = new TaskDto();
-        taskDto.setNt_seq(taskEntity.getNt_seq());
-       //taskDto.setBacklogEntity(BacklogEntity.getP.getNb_seq());
-        taskDto.setTitle(taskEntity.getTitle());
-        taskDto.setDescription(taskEntity.getDescription());
-        taskDto.setPresenter(taskEntity.getPresenter());
-        taskDto.setManager(taskEntity.getManager());
-        taskDto.setCreate_date(taskEntity.getCreate_date());
-        taskDto.setUpdate_date(taskEntity.getUpdate_data());
-        taskDto.setStory_progress(taskEntity.getStory_progress());
-        taskDto.setDeadline(taskEntity.getDeadline().toString());
-        //taskDto.setProjectEntity(taskEntity.getProjectEntity());
-
-        return taskDto;
-    }
 }

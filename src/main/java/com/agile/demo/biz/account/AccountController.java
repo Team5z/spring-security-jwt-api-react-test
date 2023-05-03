@@ -33,14 +33,14 @@ public class AccountController {
     }
 
     @GetMapping // Account의 전체 내용 출력
-    public List<AccountDto> getAllBacklog() {
+    public List<AccountEntity> getAllBacklog() {
         return accountService.getAllAccounts();
     }
 
     @GetMapping("{userId}") // Account의 전체 내용 출력
-    public ResponseEntity<AccountDto> getUserIdAccount(@PathVariable String userId) {
-        AccountDto accountDto = convertToDto(accountService.getAccountById(userId));
-        return ResponseEntity.ok(accountDto);
+    public ResponseEntity<AccountEntity> getUserIdAccount(@PathVariable String userId) {
+        AccountEntity accountEntity = accountService.getAccountById(userId);
+        return ResponseEntity.ok(accountEntity);
     }
     
     // update 하는 내용 추가 필요
@@ -55,18 +55,6 @@ public class AccountController {
 //    public void deleteAccount(@PathVariable Long np_seq){
 //        accountService.deleteAccount(userId);
 //    }
-
-
-    private AccountDto convertToDto(AccountEntity accountEntity) {
-        AccountDto accountDto = new AccountDto();
-        accountDto.setUserId(accountEntity.getUserId());
-        accountDto.setEmail(accountEntity.getEmail());
-        accountDto.setName(accountEntity.getName());
-        accountDto.setRole(accountEntity.getRole());
-        accountDto.setPhone(accountEntity.getPhone());
-        accountDto.setPassword(accountEntity.getPassword());
-        return accountDto;
-    }
 
 
 }

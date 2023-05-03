@@ -18,7 +18,7 @@ public abstract class BaseEntity implements Serializable {
 
     @Id
     @Column(name="seq")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seq;
 
     @CreatedDate

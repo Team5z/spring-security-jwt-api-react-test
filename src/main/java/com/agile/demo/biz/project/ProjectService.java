@@ -31,13 +31,6 @@ import java.util.Optional;
 
         public ProjectEntity createProject(ProjectDto projectDto) {
 
-//            // TaskEntity, BacklogEntity에서 값을 가져오기
-//            Optional<TaskEntity> taskEntity = taskRepository.findById(ProjectDto.);
-//            if (!taskEntity.isPresent()) {
-//                throw new EntityNotFoundException("Account not found with id " + ProjectDto.getAccounts().getUserId()); // id를 찾을 수 없는 경우 발생
-//            }
-
-
             ProjectEntity project = new ProjectEntity();
             project.setProject_title(projectDto.getProject_title());
             project.setProject_assign(projectDto.getProject_assign());

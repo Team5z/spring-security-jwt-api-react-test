@@ -31,22 +31,9 @@ public class AccountService {
         return accountRepository.save(accountEntity);
     }
 
-
-
-    public List<AccountDto> getAllAccounts() {
+    public List<AccountEntity> getAllAccounts() {
         List<AccountEntity> accountEntities = accountRepository.findAll();
-        List<AccountDto> accountDtos = new ArrayList<>();
-        for (AccountEntity accountEntity : accountEntities) {
-            AccountDto accountDto = new AccountDto();
-            accountDto.setUserId(accountEntity.getUserId());
-            accountDto.setPassword(accountEntity.getPassword());
-            accountDto.setRole(accountEntity.getRole());
-            accountDto.setName(accountEntity.getName());
-            accountDto.setPhone(accountEntity.getPhone());
-            accountDto.setEmail(accountEntity.getEmail());
-            accountDtos.add(accountDto);
-        }
-        return accountDtos;
+        return accountEntities;
     }
 
     public AccountEntity getAccountById(String userId) {

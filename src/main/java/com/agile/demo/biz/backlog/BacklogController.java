@@ -27,27 +27,19 @@ public class BacklogController {
     }
 
     @GetMapping("/{nb_seq}") // 백로그 출력 - 한개 확대시
-    public ResponseEntity<BacklogDto> getOneBacklog(@PathVariable long nb_seq) {
-        BacklogDto backlogDto = convertToDto(backlogService.getBacklogById(nb_seq));
-        return ResponseEntity.ok(backlogDto);
+    public ResponseEntity<BacklogEntity> getOneBacklog(@PathVariable long nb_seq) {
+        BacklogEntity backlogEntity = backlogService.getBacklogById(nb_seq);
+        return ResponseEntity.ok(backlogEntity);
     }
 
     @PutMapping("{nb_seq}") // 백로그 수정
     public ResponseEntity<?> updateBacklog(@PathVariable long nb_seq, @RequestBody BacklogDto backlogDto) {
         BacklogEntity backlogEntity = backlogService.updateBacklog(nb_seq, backlogDto);
-        return ResponseEntity.ok(convertToDto(backlogEntity));
+        return ResponseEntity.ok(backlogEntity);
     }
 
     @DeleteMapping("/{nb_seq}") // 백로그 삭제하기
     public void deleteProject(@PathVariable long nb_seq){
         backlogService.deleteBacklog(nb_seq);
-    }
-
-    private BacklogDto convertToDto(BacklogEntity backlogEntity) {
-        BacklogDto backlogDto = new BacklogDto();
-        backlogDto.setNb_seq(backlogEntity.getSeq());
-        backlogDto.setTitle(backlogEntity.getTitle());
-        backlogDto.setDescription(backlogEntity.getDescription());
-        return backlogDto;
     }
 }

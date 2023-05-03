@@ -35,9 +35,9 @@ public class TaskDto {
 
     private AccountEntity account;
 
-    private ProjectEntity projectEntity;
+    private Long projectSeq;
 
-    private BacklogEntity backlogEntity;
+    private Long backlogSeq;
 
     public void setDeadline(String deadline) {
         try {
