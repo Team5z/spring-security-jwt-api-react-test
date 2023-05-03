@@ -51,7 +51,7 @@ public class TaskService {
         taskEntity.setPresenter(taskDto.getPresenter());
         taskEntity.setManager(taskDto.getManager());
         taskEntity.setBacklogEntity(backlogEntity.get());
-        //taskEntity.setProjectEntity(projectEntity.get());
+        taskEntity.setProjectEntity(projectEntity.get());
         // BacklogEntity와 TaskEntity는 cascade 옵션으로 인해 자동 저장됩니다.
         return taskRepository.save(taskEntity);
     }

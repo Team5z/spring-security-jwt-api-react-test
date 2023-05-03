@@ -72,15 +72,15 @@ public class TaskEntity extends BaseEntity {
     private Long manager; // AccountProjectEntity에서 값을 받아오는 형태로?
 
     @OneToOne
-    @JoinColumn(name = "na_seq", insertable = false, unique = true, updatable = false)
+    @JoinColumn(name = "na_seq")
     private AccountEntity account;
 
     @ManyToOne
-    @JoinColumn(name = "seq", insertable = false, updatable = false)
+    @JoinColumn(name = "project_seq", referencedColumnName = "seq")
     private ProjectEntity projectEntity;
 
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "nb_seq", insertable = false, updatable = false)
+    @JoinColumn(name = "nb_seq")
     private BacklogEntity backlogEntity;
 }
