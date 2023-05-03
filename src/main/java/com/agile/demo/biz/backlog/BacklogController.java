@@ -39,7 +39,8 @@ public class BacklogController {
     }
 
     @DeleteMapping("/{nb_seq}") // 백로그 삭제하기
-    public void deleteProject(@PathVariable long nb_seq){
+    public ResponseEntity deleteProject(@PathVariable long nb_seq){
         backlogService.deleteBacklog(nb_seq);
+        return ResponseEntity.accepted().build();
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 
 @Transactional
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/accounts")
 public class AccountController {
     @Autowired
     private AccountService accountService;
@@ -29,7 +29,7 @@ public class AccountController {
         // 비밀번호를 저장할때 암호화해서 저장해야하는지 여부 필요
         AccountEntity accountEntity = accountService.createAccount(AccountDto);
 
-        return ResponseEntity.created(URI.create("/account/" + accountEntity.getUserId())).build();
+        return ResponseEntity.accepted().build();
     }
 
     @GetMapping // Account의 전체 내용 출력
@@ -50,11 +50,5 @@ public class AccountController {
     public void deleteAccount(@PathVariable String userId){
         accountService.deleteAccount(userId);
     }
-
-//    @DeleteMapping("/{np_seq}")
-//    public void deleteAccount(@PathVariable Long np_seq){
-//        accountService.deleteAccount(userId);
-//    }
-
 
 }

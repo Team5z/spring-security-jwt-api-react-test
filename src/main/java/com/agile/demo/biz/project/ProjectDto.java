@@ -12,9 +12,9 @@ import java.util.List;
 public class ProjectDto {
     private long np_seq;
 
-    private String project_title;
+    private String title;
 
-    private String project_assign;
+    private String assign;
 
     private List<BacklogEntity> backlogs;
 

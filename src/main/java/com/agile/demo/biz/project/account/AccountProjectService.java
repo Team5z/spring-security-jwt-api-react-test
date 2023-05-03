@@ -47,8 +47,6 @@ public class AccountProjectService {
             throw new EntityNotFoundException("Project not found with id " + accountProjectDto.getProjectSeq());
         }
 
-        System.out.println(accountEntity.get());
-        System.out.println(projectEntity.get());
 
         AccountProjectEntity accountProjectEntity = new AccountProjectEntity();
         accountProjectEntity.setAccounts(accountEntity.get());

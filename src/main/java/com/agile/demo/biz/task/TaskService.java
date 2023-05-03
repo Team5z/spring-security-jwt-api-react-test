@@ -43,7 +43,7 @@ public class TaskService {
         TaskEntity taskEntity = new TaskEntity();
         taskEntity.setSeq(taskDto.getNt_seq());
         taskEntity.setTitle(taskDto.getTitle());
-        taskEntity.setStoryProgress(taskDto.getStory_progress());
+        taskEntity.setStoryProgress(taskDto.getStoryProgress());
         taskEntity.setDescription(taskDto.getDescription());
         taskEntity.setDeadline(taskDto.getDeadline()); // 작성자가 원하는 시간으로
         taskEntity.setPresenter(taskDto.getPresenter());
@@ -93,7 +93,7 @@ public class TaskService {
         //taskEntity.setBacklogEntity(taskDto.getBacklogSeq());
         taskEntity.setPresenter(taskDto.getPresenter());
         taskEntity.setManager(taskDto.getManager());
-        taskEntity.setStoryProgress(taskDto.getStory_progress());
+        taskEntity.setStoryProgress(taskDto.getStoryProgress());
         taskEntity.setAccount(taskDto.getAccount());
         taskEntity.setDeadline(taskDto.getDeadline());
 

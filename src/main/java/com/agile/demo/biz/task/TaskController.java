@@ -8,7 +8,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/task")
+@RequestMapping("/tasks")
 public class TaskController {
     @Autowired
     private TaskService taskService;
@@ -16,7 +16,7 @@ public class TaskController {
     @PostMapping
     public ResponseEntity<?> createTask(@RequestBody TaskDto taskDto) {
         TaskEntity taskEntity = taskService.createTask(taskDto);
-        return ResponseEntity.created(URI.create("/task/" + taskEntity.getSeq())).build();
+        return ResponseEntity.accepted().build();
     }
 
     @GetMapping
@@ -25,8 +25,9 @@ public class TaskController {
     }
 
     @DeleteMapping("{nt_seq}")
-    public void deleteTask(@PathVariable long nt_seq){
+    public ResponseEntity deleteTask(@PathVariable long nt_seq){
         taskService.deleteTask(nt_seq);
+        return ResponseEntity.accepted().build();
     }
 
     @GetMapping("{np_seq}") // 태스크 출력하기 - 프로젝트별

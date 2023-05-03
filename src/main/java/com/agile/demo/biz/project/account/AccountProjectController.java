@@ -11,7 +11,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/accountproject")
+@RequestMapping("/accountprojects") // 테스트용으로 곧 제거할 예정
 public class AccountProjectController {
 
     @Autowired
@@ -31,8 +31,9 @@ public class AccountProjectController {
     }
 
     @DeleteMapping("/{userId}")
-    public void deleteAccountProject(@PathVariable String userId){
+    public ResponseEntity deleteAccountProject(@PathVariable String userId){
         accountProjectService.deleteAccountProject_userId(userId);
+        return ResponseEntity.accepted().build();
     }
 
 //    @DeleteMapping("/{np_seq}")

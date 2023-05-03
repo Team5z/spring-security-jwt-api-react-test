@@ -31,7 +31,7 @@ public class BacklogService {
         backlogEntity.setProject(projectEntity.get()); // 여기서 insert 안되는 이유 ㅜㅜ
         backlogEntity.setTitle(backlogDto.getTitle());
         backlogEntity.setDescription(backlogDto.getDescription());
-        backlogEntity.setStory_progress(backlogDto.getStory_progress());
+        backlogEntity.setStoryProgress(backlogDto.getStoryProgress());
 
         return backlogRepository.save(backlogEntity);
     }
@@ -58,7 +58,7 @@ public class BacklogService {
         // 프로젝트를 업데이트합니다.
         backlogEntity.setTitle(backlogDto.getTitle());
         backlogEntity.setDescription(backlogDto.getDescription());
-        backlogEntity.setStory_progress(backlogDto.getStory_progress());
+        backlogEntity.setStoryProgress(backlogDto.getStoryProgress());
 
 
         // 업데이트된 프로젝트를 저장하고 반환합니다.

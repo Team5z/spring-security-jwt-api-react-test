@@ -19,7 +19,7 @@ public class TaskDto {
 
     private String title;
 
-    private Integer story_progress;
+    private Integer storyProgress;
 
     private String description;
 
