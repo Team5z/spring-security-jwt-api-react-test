@@ -19,15 +19,15 @@ public interface AccountProjectRepository extends JpaRepository<AccountProjectEn
 
     void deleteByAccounts_UserId(String userId);
 
-// 메소드 오류 문제 
-//    Optional<AccountProjectEntity> findByProjects_Np_seq(Long np_seq);
+// 메소드 오류 문제
+    Optional<AccountProjectEntity> findByAccounts_Seq(Long np_seq);
 //
 //    void deleteByProjects_Np_seq(Long np_Seq);
 
     // 여기서 오류가 발생하는 이유도 찾기
 //    Optional<AccountProjectEntity> findByAccounts_UserId(String account_seq);
 //
-//    Optional<AccountProjectEntity> findByProjects_Np_seq(Long np_seq);
+//    Optional<AccountProjectEntity> findBy_seq(Long np_seq);
 //
 //    Optional<AccountProjectEntity> deleteByAccounts(String userId);
 //
