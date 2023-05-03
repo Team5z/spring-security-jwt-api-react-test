@@ -1,7 +1,11 @@
 package com.agile.demo.biz.project;
 
+import com.agile.demo.biz.backlog.BacklogEntity;
+import com.agile.demo.biz.task.TaskEntity;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,12 +16,7 @@ public class ProjectDto {
 
     private String project_assign;
 
-    @Override
-    public String toString() {
-        return "ProjectDto{" +
-                "np_seq=" + np_seq +
-                ", project_title='" + project_title + '\'' +
-                ", project_assign='" + project_assign + '\'' +
-                '}';
-    }
+    private List<BacklogEntity> backlogs;
+
+    private List<TaskEntity> tasks;
 }

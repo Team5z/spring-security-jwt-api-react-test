@@ -46,10 +46,15 @@ public class AccountController {
     // update 하는 내용 추가 필요
 
 
-    @DeleteMapping("{userId}")
+    @DeleteMapping("/{userId}")
     public void deleteAccount(@PathVariable String userId){
         accountService.deleteAccount(userId);
     }
+
+//    @DeleteMapping("/{np_seq}")
+//    public void deleteAccount(@PathVariable Long np_seq){
+//        accountService.deleteAccount(userId);
+//    }
 
 
     private AccountDto convertToDto(AccountEntity accountEntity) {

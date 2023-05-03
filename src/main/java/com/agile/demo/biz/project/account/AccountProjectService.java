@@ -45,9 +45,9 @@ public class AccountProjectService {
             throw new EntityNotFoundException("Account not found with id " + accountProjectDto.getAccounts().getUserId()); // id를 찾을 수 없는 경우 발생
         }
 
-        Optional<ProjectEntity> projectEntity = projectRepository.findById(accountProjectDto.getProjects().getNp_seq());
+        Optional<ProjectEntity> projectEntity = projectRepository.findById(accountProjectDto.getProjects().getSeq());
         if (!projectEntity.isPresent()) {
-            throw new EntityNotFoundException("Project not found with id " + accountProjectDto.getProjects().getNp_seq());
+            throw new EntityNotFoundException("Project not found with id " + accountProjectDto.getProjects().getSeq());
         }
 
         // id와 np_seq를 조회한 결과를 accountprojectDto에 넣기

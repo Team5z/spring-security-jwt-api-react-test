@@ -2,6 +2,7 @@ package com.agile.demo.biz.project;
 
 import com.agile.demo.biz.backlog.BacklogEntity;
 import com.agile.demo.biz.task.TaskEntity;
+import com.agile.demo.core.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,12 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 
-public class ProjectEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="np_seq", nullable = false, length = 25, unique = true)
-    private long np_seq;
+public class ProjectEntity extends BaseEntity {
 
     @Column(nullable = false, updatable = true, length = 100)
     private String project_title;
@@ -32,15 +28,8 @@ public class ProjectEntity {
     @Column(nullable = true, updatable = true)
     private String project_assign;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "np_seq", insertable = false, updatable = false)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "project") // project를 삭제하면 같이 삭제1
     private List<BacklogEntity> backlogs;       // 체크 필요
-
-    @OneToMany(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "np_seq", insertable = false, updatable = false)
-    private List<TaskEntity> taskentity;
-
-
 
 
 }

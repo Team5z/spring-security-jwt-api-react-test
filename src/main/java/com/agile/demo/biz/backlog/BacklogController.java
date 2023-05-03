@@ -18,11 +18,11 @@ public class BacklogController {
     public ResponseEntity<?> createProject(@RequestBody BacklogDto backlogDto) {
         BacklogEntity backlogEntity = backlogService.createBacklog(backlogDto);
 
-        return ResponseEntity.created(URI.create("/backlog/" + backlogEntity.getNb_seq())).build();
+        return ResponseEntity.accepted().build();
     }
 
     @GetMapping // 백로그 출력하기 - 전체
-    public List<BacklogDto> getAllBacklog() {
+    public List<BacklogEntity> getAllBacklog() {
         return backlogService.getAllBacklog();
     }
 
@@ -45,9 +45,8 @@ public class BacklogController {
 
     private BacklogDto convertToDto(BacklogEntity backlogEntity) {
         BacklogDto backlogDto = new BacklogDto();
-        backlogDto.setNb_seq(backlogEntity.getNb_seq());
+        backlogDto.setNb_seq(backlogEntity.getSeq());
         backlogDto.setTitle(backlogEntity.getTitle());
-        backlogDto.setProject(backlogEntity.getProject());
         backlogDto.setDescription(backlogEntity.getDescription());
         return backlogDto;
     }

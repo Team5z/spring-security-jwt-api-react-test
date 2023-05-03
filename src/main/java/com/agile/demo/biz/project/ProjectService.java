@@ -1,5 +1,8 @@
 package com.agile.demo.biz.project;
 
+import com.agile.demo.biz.account.AccountEntity;
+import com.agile.demo.biz.task.TaskEntity;
+import com.agile.demo.biz.task.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,19 +16,13 @@ import java.util.Optional;
 
         @Autowired
         private ProjectRepository projectRepository;
-        
 
-        public List<ProjectDto> getAllProjects() { // entity -> dto로 값을 넣는 과정
-            List<ProjectEntity> projectEntities = projectRepository.findAll();
-            List<ProjectDto> projectDtos = new ArrayList<>();
-            for (ProjectEntity projectEntity : projectEntities) {
-                ProjectDto projectDto = new ProjectDto();
-                projectDto.setNp_seq(projectEntity.getNp_seq());
-                projectDto.setProject_title(projectEntity.getProject_title());
-                projectDto.setProject_assign(projectEntity.getProject_assign());
-                projectDtos.add(projectDto);
-            }
-            return projectDtos;
+        @Autowired
+        private TaskRepository taskRepository;
+
+    public List<ProjectEntity> getAllProjects() { // entity -> dto로 값을 넣는 과정
+
+            return projectRepository.findAll();
         }
 
         public void deleteProjectById(Long np_seq) {
@@ -33,6 +30,14 @@ import java.util.Optional;
         }
 
         public ProjectEntity createProject(ProjectDto projectDto) {
+
+//            // TaskEntity, BacklogEntity에서 값을 가져오기
+//            Optional<TaskEntity> taskEntity = taskRepository.findById(ProjectDto.);
+//            if (!taskEntity.isPresent()) {
+//                throw new EntityNotFoundException("Account not found with id " + ProjectDto.getAccounts().getUserId()); // id를 찾을 수 없는 경우 발생
+//            }
+
+
             ProjectEntity project = new ProjectEntity();
             project.setProject_title(projectDto.getProject_title());
             project.setProject_assign(projectDto.getProject_assign());

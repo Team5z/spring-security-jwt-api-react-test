@@ -28,8 +28,8 @@ public class AccountProjectEntity extends BaseEntity { // 어떤 사람이 어�
     @JoinColumn (name="account_seq", referencedColumnName="userId", updatable = false) // 삭제하면 같이 삭제되는 부분추가
     private AccountEntity accounts;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn (name="project_seq", referencedColumnName="np_seq", updatable = false) // 삭제하면 같이 삭제되는 부분추가
+    @ManyToOne
+    @JoinColumn (name="project_seq", referencedColumnName="seq", updatable = false) // 삭제하면 같이 삭제되는 부분추가
     private ProjectEntity projects;
 }
 

@@ -17,12 +17,12 @@ public class ProjectController {
     @PostMapping
     public ResponseEntity<?> createProject(@RequestBody ProjectDto projectDto) {
         ProjectEntity projectEntity = projectService.createProject(projectDto);
-        return ResponseEntity.created(URI.create("/projects/" + projectEntity.getNp_seq())).build();
+        return ResponseEntity.accepted().build();
     }
 
     @GetMapping
-    public List<ProjectDto> getAllProjects() {
-        return projectService.getAllProjects();
+    public ResponseEntity getAllProjects() {
+        return ResponseEntity.ok().body(projectService.getAllProjects()) ;
     }
 
     @GetMapping("{np_seq}")
@@ -39,13 +39,14 @@ public class ProjectController {
     }
 
     @DeleteMapping("{np_seq}")
-    public void deleteProject(@PathVariable long np_seq){
+    public ResponseEntity deleteProject(@PathVariable long np_seq){
         projectService.deleteProject(np_seq);
+        return ResponseEntity.accepted().build();
     }
 
     private ProjectDto convertToDto(ProjectEntity projectEntity) {
         ProjectDto projectDto = new ProjectDto();
-        projectDto.setNp_seq(projectEntity.getNp_seq());
+        projectDto.setNp_seq(projectEntity.getSeq());
         projectDto.setProject_title(projectEntity.getProject_title());
         projectDto.setProject_assign(projectEntity.getProject_assign());
         return projectDto;

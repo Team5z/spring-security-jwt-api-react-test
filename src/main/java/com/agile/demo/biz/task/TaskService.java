@@ -1,5 +1,10 @@
 package com.agile.demo.biz.task;
 
+import com.agile.demo.biz.account.AccountEntity;
+import com.agile.demo.biz.backlog.BacklogEntity;
+import com.agile.demo.biz.backlog.BacklogRepository;
+import com.agile.demo.biz.project.ProjectEntity;
+import com.agile.demo.biz.project.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +19,30 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
+    @Autowired
+    private BacklogRepository backlogRepository;
+
+    @Autowired
+    private ProjectRepository projectRepository;
+
     public TaskEntity createTask(TaskDto taskDto) {
+
+        // backlog에서 값을 조회해서 backlogEntity에서 받아옴
+        Optional<BacklogEntity> backlogEntity = backlogRepository.findById(taskDto.getBacklogEntity().getSeq());
+        if (!backlogEntity.isPresent()) {
+            throw new EntityNotFoundException("Account not found with id " + taskDto.getBacklogEntity().getSeq()); // id를 찾을 수 없는 경우 발생
+        }
+
+        // project에서 값을 조회해서 backlogEntity에서 받아옴
+        Optional<ProjectEntity> projectEntity = projectRepository.findById(taskDto.getProjectEntity().getSeq());
+        if (!projectEntity.isPresent()) {
+            throw new EntityNotFoundException("Account not found with id " + taskDto.getProjectEntity().getSeq()); // id를 찾을 수 없는 경우 발생
+        }
+
+        // id와 np_seq를 조회한 결과를 accountprojectDto에 넣기
+        taskDto.setBacklogEntity(backlogEntity.get());
+        taskDto.setProjectEntity(projectEntity.get());
+
         TaskEntity taskEntity = new TaskEntity();
         taskEntity.setNt_seq(taskDto.getNt_seq());
         taskEntity.setTitle(taskDto.getTitle());
@@ -25,7 +53,8 @@ public class TaskService {
         taskEntity.setDeadline(taskDto.getDeadline()); // 작성자가 원하는 시간으로
         taskEntity.setPresenter(taskDto.getPresenter());
         taskEntity.setManager(taskDto.getManager());
-
+        taskEntity.setBacklogEntity(taskDto.getBacklogEntity());
+        taskEntity.setProjectEntity(taskEntity.getProjectEntity());
         // BacklogEntity와 TaskEntity는 cascade 옵션으로 인해 자동 저장됩니다.
         return taskRepository.save(taskEntity);
     }
@@ -44,7 +73,8 @@ public class TaskService {
             taskDto.setDeadline(taskEntity.getDeadline().toString());
             taskDto.setPresenter(taskEntity.getPresenter());
             taskDto.setManager(taskEntity.getManager());
-
+            taskDto.setBacklogEntity(taskDto.getBacklogEntity());
+            taskDto.setProjectEntity(taskDto.getProjectEntity());
 
             taskDtos.add(taskDto);
         }

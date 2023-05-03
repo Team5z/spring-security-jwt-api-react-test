@@ -1,5 +1,8 @@
 package com.agile.demo.biz.backlog;
 import com.agile.demo.biz.project.ProjectEntity;
+import com.agile.demo.core.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,11 +16,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class BacklogEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="nb_seq", nullable = false, length = 25, unique = true)
-    private Long nb_seq;
+public class BacklogEntity extends BaseEntity {
 
     @Column(nullable = false, updatable = true, length = 100)
     private String title;
@@ -29,7 +28,8 @@ public class BacklogEntity {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "np_seq", insertable = false, updatable = false)
+    @JsonIgnore
+    @JoinColumn(name = "project_seq", referencedColumnName = "seq")
     private ProjectEntity project;
 
 //    public void setProject(ProjectEntity project) {

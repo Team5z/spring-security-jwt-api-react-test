@@ -16,5 +16,5 @@ public class BacklogDto {
 
     private String description;
 
-    private ProjectEntity project;
+    private Long projectSeq;
 }

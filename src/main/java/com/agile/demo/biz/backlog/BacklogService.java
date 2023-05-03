@@ -20,19 +20,15 @@ public class BacklogService {
 
     public BacklogEntity createBacklog(BacklogDto backlogDto) {
 
-        System.out.println(backlogDto.getProject());
+        // project의 내용을 출
 
-        Optional<ProjectEntity> projectEntity = projectRepository.findById(backlogDto.getProject().getNp_seq());
+        Optional<ProjectEntity> projectEntity = projectRepository.findById(backlogDto.getProjectSeq());
         if (!projectEntity.isPresent()) {
-            throw new EntityNotFoundException("Project not found with id " + backlogDto.getProject().getNp_seq()); // id를 찾을 수 없는 경우 발생
+            throw new EntityNotFoundException("Project not found with id " + backlogDto.getProjectSeq()); // id를 찾을 수 없는 경우 발생
         }
 
-        backlogDto.setProject(projectEntity.get());
-        System.out.println(backlogDto.getProject().getNp_seq());
-        System.out.println(backlogDto.getProject().getClass());
-
         BacklogEntity backlogEntity = new BacklogEntity();
-        backlogEntity.setProject(backlogDto.getProject()); // 여기서 insert 안되는 이유 ㅜㅜ
+        backlogEntity.setProject(projectEntity.get()); // 여기서 insert 안되는 이유 ㅜㅜ
         backlogEntity.setTitle(backlogDto.getTitle());
         backlogEntity.setDescription(backlogDto.getDescription());
         backlogEntity.setStory_progress(backlogDto.getStory_progress());
@@ -40,19 +36,8 @@ public class BacklogService {
         return backlogRepository.save(backlogEntity);
     }
 
-    public List<BacklogDto> getAllBacklog() {
-        List<BacklogEntity> backlogEntities = backlogRepository.findAll();
-        List<BacklogDto> backlogDtos = new ArrayList<>();
-        for (BacklogEntity backlogEntity : backlogEntities) {
-            BacklogDto backlogDto = new BacklogDto();
-            backlogDto.setNb_seq(backlogEntity.getNb_seq());
-            backlogDto.setTitle(backlogEntity.getTitle());
-            backlogDto.setStory_progress(backlogEntity.getStory_progress());
-            backlogDto.setDescription(backlogEntity.getDescription());
-            backlogDto.setProject(backlogEntity.getProject());
-            backlogDtos.add(backlogDto);
-        }
-        return backlogDtos;
+    public List<BacklogEntity> getAllBacklog() {
+        return backlogRepository.findAll();
     }
 
     public void deleteBacklog(long nb_seq) {
