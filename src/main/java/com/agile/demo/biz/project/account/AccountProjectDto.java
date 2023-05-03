@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Getter
 public class AccountProjectDto implements Serializable {
 
-    private AccountEntity accounts;
+    private String accountUserId;
 
-    private ProjectEntity projects;
+    private Long projectSeq;
 }

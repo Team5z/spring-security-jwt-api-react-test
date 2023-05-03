@@ -21,7 +21,7 @@ public class AccountProjectController {
     public ResponseEntity<?> createAccountProject(@RequestBody AccountProjectDto accountProjectDto) {
         AccountProjectEntity accountProjectEntity = accountProjectService.createAccountProject(accountProjectDto);
 
-        return ResponseEntity.created(URI.create("/accountProject/" + accountProjectEntity.getSeq())).build();
+        return ResponseEntity.accepted().build();
     }
 
     // 내용이 잘들어갔는지 확인용

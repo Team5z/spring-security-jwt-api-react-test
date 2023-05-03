@@ -33,31 +33,11 @@ public class TaskEntity extends BaseEntity {
     private String title;
 
     @Column(nullable = true, updatable = true)
-    private Integer story_progress;
+    private Integer storyProgress;
 
     @Column(nullable = true, updatable = true, length = 255)
     private String description;
 
-//    @Column(name = "createDate", nullable = true, insertable = true, updatable = false)
-//    @CreatedDate
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
-//    private LocalDateTime create_date;
-//
-//    @Column(name = "updateData", nullable = true, insertable = true, updatable = true)
-//    @LastModifiedDate
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
-//    private LocalDateTime update_data;
-//
-//    @PrePersist
-//    public void setDate() {
-//        this.setCreate_date(LocalDateTime.now());
-//        this.setUpdate_data(LocalDateTime.now());
-//    }
-//
-//    @PreUpdate
-//    public void modifiedDate() {
-//        this.setUpdate_data(LocalDateTime.now());
-//    }
 
     // deadline 추가하기 - dropdown 형식으로 보이도록할 예정
     @Column(nullable = true, updatable = true)

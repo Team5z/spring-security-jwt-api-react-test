@@ -32,8 +32,8 @@ import java.util.Optional;
         public ProjectEntity createProject(ProjectDto projectDto) {
 
             ProjectEntity project = new ProjectEntity();
-            project.setProject_title(projectDto.getProject_title());
-            project.setProject_assign(projectDto.getProject_assign());
+            project.setTitle(projectDto.getProject_title());
+            project.setAssign(projectDto.getProject_assign());
             return projectRepository.save(project);
         }
 
@@ -42,8 +42,8 @@ import java.util.Optional;
         ProjectEntity projectEntity = projectRepository.findById(np_seq).get();
 
         // 프로젝트를 업데이트합니다.
-        projectEntity.setProject_title(projectDto.getProject_title());
-        projectEntity.setProject_assign(projectDto.getProject_assign());
+        projectEntity.setTitle(projectDto.getProject_title());
+        projectEntity.setAssign(projectDto.getProject_assign());
 
         // 업데이트된 프로젝트를 저장하고 반환합니다.
         return projectRepository.save(projectEntity);

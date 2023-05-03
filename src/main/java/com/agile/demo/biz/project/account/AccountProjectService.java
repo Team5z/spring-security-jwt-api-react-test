@@ -37,41 +37,25 @@ public class AccountProjectService {
     // 2. 프로젝트에 초대 받은 경우 추가
     public AccountProjectEntity createAccountProject(AccountProjectDto accountProjectDto) {
 
-        System.out.println(accountProjectDto.getAccounts()); // AccountEntity(userId=sd1, password=null, role=null, name=null, phone=null, email=null)
-        System.out.println(accountProjectDto.getProjects()); //
-
-        Optional<AccountEntity> accountEntity = accountRepository.findByUserId(accountProjectDto.getAccounts().getUserId());
+        Optional<AccountEntity> accountEntity = accountRepository.findByUserId(accountProjectDto.getAccountUserId());
         if (!accountEntity.isPresent()) {
-            throw new EntityNotFoundException("Account not found with id " + accountProjectDto.getAccounts().getUserId()); // id를 찾을 수 없는 경우 발생
+            throw new EntityNotFoundException("Account not found with id " + accountProjectDto.getAccountUserId()); // id를 찾을 수 없는 경우 발생
         }
 
-        Optional<ProjectEntity> projectEntity = projectRepository.findById(accountProjectDto.getProjects().getSeq());
+        Optional<ProjectEntity> projectEntity = projectRepository.findById(accountProjectDto.getProjectSeq());
         if (!projectEntity.isPresent()) {
-            throw new EntityNotFoundException("Project not found with id " + accountProjectDto.getProjects().getSeq());
+            throw new EntityNotFoundException("Project not found with id " + accountProjectDto.getProjectSeq());
         }
 
-        // id와 np_seq를 조회한 결과를 accountprojectDto에 넣기
-        accountProjectDto.setAccounts(accountEntity.get());
-        accountProjectDto.setProjects(projectEntity.get());
+        System.out.println(accountEntity.get());
+        System.out.println(projectEntity.get());
 
         AccountProjectEntity accountProjectEntity = new AccountProjectEntity();
-        accountProjectEntity.setAccounts(accountProjectDto.getAccounts());
-        accountProjectEntity.setProjects(accountProjectDto.getProjects());
+        accountProjectEntity.setAccounts(accountEntity.get());
+        accountProjectEntity.setProjects(projectEntity.get());
         return     accountProjectRepository.save(accountProjectEntity);
 
     }
-
-//    public List<AccountProjectDto> getAllaccountProject() {
-//        List<AccountProjectEntity> accountProjectEntities = accountProjectRepository.findAll();
-//        List<AccountProjectDto> accountProjectDtos = new ArrayList<>();
-//        for (AccountProjectEntity accountProjectEntity : accountProjectEntities) {
-//            AccountProjectDto accountProjectDto = new AccountProjectDto();
-//            accountProjectDto.setAccounts(accountProjectEntity.getAccounts());
-//            accountProjectDto.setProjects(accountProjectEntity.getProjects());
-//            accountProjectDtos.add(accountProjectDto);
-//        }
-//        return accountProjectDtos;
-//    }
 
     public List<AccountProjectEntity> getAllaccountProject() {
         return accountProjectRepository.findAll();
@@ -93,17 +77,17 @@ public class AccountProjectService {
     }
 
     // 2. 프로젝트 삭제 - 프로젝트내 속한 사람들의 정보 제거
-    @Transactional
-    public void deleteAccountProject_npSeq(String userId) {
-        // 프로젝트가 존재하는지 확인
-
-        Optional<AccountProjectEntity> accountProjectEntity = accountProjectRepository.findByAccounts_UserId(userId);
-        if (!accountProjectEntity.isPresent()) {
-            throw new EntityNotFoundException("AccountProject not found with id " + userId);
-        }
-
-        // 프로젝트 삭제
-        accountProjectRepository.deleteByAccounts_UserId(userId);
-    }
+//    @Transactional
+//    public void deleteAccountProject_npSeq(String userId) {
+//        // 프로젝트가 존재하는지 확인
+//
+//        Optional<AccountProjectEntity> accountProjectEntity = accountProjectRepository.findByAccounts_UserId(userId);
+//        if (!accountProjectEntity.isPresent()) {
+//            throw new EntityNotFoundException("AccountProject not found with id " + userId);
+//        }
+//
+//        // 프로젝트 삭제
+//        accountProjectRepository.deleteByAccounts_UserId(userId);
+//    }
 
 }

@@ -23,10 +23,6 @@ public class TaskDto {
 
     private String description;
 
-    private LocalDateTime create_date;
-
-    private LocalDateTime update_date;
-
     private LocalDate deadline;
 
     private Long presenter;
