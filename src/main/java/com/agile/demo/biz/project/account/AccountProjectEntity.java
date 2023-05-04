@@ -3,6 +3,7 @@ package com.agile.demo.biz.project.account;
 import com.agile.demo.biz.account.AccountEntity;
 import com.agile.demo.biz.project.ProjectEntity;
 import com.agile.demo.core.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,6 +29,7 @@ public class AccountProjectEntity extends BaseEntity { // 어떤 사람이 어�
 
     @ManyToOne
     @JoinColumn (name="project_seq", referencedColumnName="seq") // 삭제하면 같이 삭제되는 부분추가
+    @JsonBackReference
     private ProjectEntity projects;
 }
 

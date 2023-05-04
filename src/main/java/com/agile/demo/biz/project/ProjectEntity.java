@@ -1,6 +1,7 @@
 package com.agile.demo.biz.project;
 
 import com.agile.demo.biz.backlog.BacklogEntity;
+import com.agile.demo.biz.project.account.AccountProjectEntity;
 import com.agile.demo.biz.task.TaskEntity;
 import com.agile.demo.core.base.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -35,4 +36,8 @@ public class ProjectEntity extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "project" , cascade = CascadeType.REMOVE) // project를 삭제하면 같이 삭제
     @JsonManagedReference
     private List<TaskEntity> tasks;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "projects" , cascade = CascadeType.REMOVE) // project를 삭제하면 같이 삭제
+    @JsonManagedReference
+    private List<AccountProjectEntity> accountProjects;
 }
