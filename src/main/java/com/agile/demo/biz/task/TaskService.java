@@ -1,10 +1,13 @@
 package com.agile.demo.biz.task;
 
 import com.agile.demo.biz.account.AccountEntity;
+import com.agile.demo.biz.account.AccountRepository;
 import com.agile.demo.biz.backlog.BacklogEntity;
 import com.agile.demo.biz.backlog.BacklogRepository;
 import com.agile.demo.biz.project.ProjectEntity;
 import com.agile.demo.biz.project.ProjectRepository;
+import com.agile.demo.biz.project.account.AccountProjectEntity;
+import com.agile.demo.biz.project.account.AccountProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +28,9 @@ public class TaskService {
     @Autowired
     private ProjectRepository projectRepository;
 
+    @Autowired
+    private AccountProjectRepository accountProjectRepository;
+
     public TaskEntity createTask(TaskDto taskDto) {
 
         // backlog에서 값을 조회해서 backlogEntity에서 받아옴
@@ -39,6 +45,22 @@ public class TaskService {
             throw new EntityNotFoundException("Account not found with id " + taskDto.getProjectSeq()); // id를 찾을 수 없는 경우 발생
         }
 
+        // manager, presenter의 값을 하나씩 조회 -> 리스트로 만들기
+        Optional<AccountProjectEntity> accountProjectEntityManager = accountProjectRepository.findByAccounts_UserId(taskDto.getManager());
+        if (!accountProjectEntityManager.isPresent()) {
+            throw new EntityNotFoundException("AccountProject not found with Manger Id " + taskDto.getManager()); // id를 찾을 수 없는 경우 발생
+        }
+
+        Optional<AccountProjectEntity> accountProjectEntityPresenter = accountProjectRepository.findByAccounts_UserId(taskDto.getPresenter());
+        if (!accountProjectEntityPresenter.isPresent()) {
+            throw new EntityNotFoundException("AccountProject not found with Presenter Id " + taskDto.getPresenter()); // id를 찾을 수 없는 경우 발생
+        }
+        
+        // 리스트에 0번 - Presenter, 1번 - Manager를 저장
+//        List<AccountProjectEntity> accountProjectList = new ArrayList<>();
+//        accountProjectList.add(accountProjectEntityPresenter);
+//        accountProjectList.add(accountProjectEntityManager);
+
 
         TaskEntity taskEntity = new TaskEntity();
         taskEntity.setSeq(taskDto.getNt_seq());
@@ -46,8 +68,9 @@ public class TaskService {
         taskEntity.setStoryProgress(taskDto.getStoryProgress());
         taskEntity.setDescription(taskDto.getDescription());
         taskEntity.setDeadline(taskDto.getDeadline()); // 작성자가 원하는 시간으로
-        taskEntity.setPresenter(taskDto.getPresenter());
-        taskEntity.setManager(taskDto.getManager());
+        taskEntity.setPresenter(accountProjectEntityPresenter.get());
+        taskEntity.setManager(accountProjectEntityManager.get());
+        //taskEntity.setAccountrPoject(accountProjectList.get(0));
         taskEntity.setBacklogEntity(backlogEntity.get());
         taskEntity.setProject(projectEntity.get());
         // BacklogEntity와 TaskEntity는 cascade 옵션으로 인해 자동 저장됩니다.
@@ -91,10 +114,11 @@ public class TaskService {
         taskEntity.setTitle(taskDto.getTitle());
         taskEntity.setDescription(taskDto.getDescription());
         //taskEntity.setBacklogEntity(taskDto.getBacklogSeq());
-        taskEntity.setPresenter(taskDto.getPresenter());
-        taskEntity.setManager(taskDto.getManager());
+
+//
+//        taskEntity.setPresenter(taskDto.getPresenter());
+//        taskEntity.setManager(taskDto.getManager());
         taskEntity.setStoryProgress(taskDto.getStoryProgress());
-        taskEntity.setAccount(taskDto.getAccount());
         taskEntity.setDeadline(taskDto.getDeadline());
 
         // 업데이트된 태스크를 저장하고 반환합니다.

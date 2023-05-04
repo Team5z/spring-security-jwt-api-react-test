@@ -1,7 +1,7 @@
 package com.agile.demo.biz.task;
-import com.agile.demo.biz.account.AccountEntity;
 import com.agile.demo.biz.backlog.BacklogEntity;
 import com.agile.demo.biz.project.ProjectEntity;
+import com.agile.demo.biz.project.account.AccountProjectEntity;
 import com.agile.demo.core.base.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -10,12 +10,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "NTask")
@@ -41,15 +39,18 @@ public class TaskEntity extends BaseEntity {
     private LocalDate deadline;
 
     // accountProjectEntity에서 가져오도록?
-    @Column(nullable = false, updatable = true)
-    private Long presenter; // AccountProjectEntity에서 값을 받아오는 형태로?
+    @ManyToOne
+    @JoinColumn(name = "na_seq1", nullable = true)
+    private AccountProjectEntity presenter;
 
-    @Column(nullable = false, updatable = true)
-    private Long manager; // AccountProjectEntity에서 값을 받아오는 형태로?
+    @ManyToOne
+    @JoinColumn(name = "na_seq2", nullable = true)
+    private AccountProjectEntity manager; // AccountProjectEntity에서 값을 받아오는 형태로?
 
-    @OneToOne
-    @JoinColumn(name = "na_seq")
-    private AccountEntity account;
+    // accountProjectEntity에서 가져오도록?
+//    @ManyToMany
+//    @JoinColumn(name = "na_seq", nullable = true)
+//    private List<AccountProjectEntity> accountrPoject;
 
     @ManyToOne
     @JsonBackReference

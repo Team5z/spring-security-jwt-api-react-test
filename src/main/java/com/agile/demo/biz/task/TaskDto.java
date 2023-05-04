@@ -25,11 +25,9 @@ public class TaskDto {
 
     private LocalDate deadline;
 
-    private Long presenter;
+    private String presenter;
 
-    private Long manager;
-
-    private AccountEntity account;
+    private String manager;
 
     private Long projectSeq;
 

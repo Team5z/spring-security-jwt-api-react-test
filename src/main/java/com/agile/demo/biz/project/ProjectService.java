@@ -1,6 +1,8 @@
 package com.agile.demo.biz.project;
 
 import com.agile.demo.biz.account.AccountEntity;
+import com.agile.demo.biz.project.account.AccountProjectEntity;
+import com.agile.demo.biz.project.account.AccountProjectRepository;
 import com.agile.demo.biz.task.TaskEntity;
 import com.agile.demo.biz.task.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,7 @@ import java.util.Optional;
         private ProjectRepository projectRepository;
 
         @Autowired
-        private TaskRepository taskRepository;
+        private AccountProjectRepository accountprojectRepository;
 
     public List<ProjectEntity> getAllProjects() { // entity -> dto로 값을 넣는 과정
 
@@ -30,13 +32,11 @@ import java.util.Optional;
         }
 
         public ProjectEntity createProject(ProjectDto projectDto) {
-            
-            // 프로젝트의 생성이니까 생성자의 정보를 저장하자! => 테이블에 가입된 사람이 없는데 참조할 수 없음
-        
-        
+
             ProjectEntity project = new ProjectEntity();
             project.setTitle(projectDto.getTitle());
-            project.setAssign(projectDto.getAssign()); //같은 프로젝트 안에 있는지 확인해야지
+            // 현재 로그인한 아이디를 넣는 방법으로, userId를 사용하는지, seq를 사용해서 저장하는지
+            project.setAssign(projectDto.getAssign()); // 조회한 결과를 넣어야하는뎁!!!! accountproject의 내용이 들어갈 수 없음
             return projectRepository.save(project);
         }
 
