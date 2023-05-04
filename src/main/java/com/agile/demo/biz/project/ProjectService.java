@@ -30,16 +30,22 @@ import java.util.Optional;
         }
 
         public ProjectEntity createProject(ProjectDto projectDto) {
-
+            
+            // 프로젝트의 생성이니까 생성자의 정보를 저장하자! => 테이블에 가입된 사람이 없는데 참조할 수 없음
+        
+        
             ProjectEntity project = new ProjectEntity();
             project.setTitle(projectDto.getTitle());
-            project.setAssign(projectDto.getAssign());
+            project.setAssign(projectDto.getAssign()); //같은 프로젝트 안에 있는지 확인해야지
             return projectRepository.save(project);
         }
 
     public ProjectEntity updateProject(long np_seq, ProjectDto projectDto) {
         // np_seq 값으로 프로젝트를 조회합니다.
         ProjectEntity projectEntity = projectRepository.findById(np_seq).get();
+        
+        // 같은 프로젝트있는 사람들 중에 선택할 수 있도록 변경하기
+
 
         // 프로젝트를 업데이트합니다.
         projectEntity.setTitle(projectDto.getTitle());
@@ -66,6 +72,3 @@ import java.util.Optional;
                 .get();
     }
 }
-
-
-

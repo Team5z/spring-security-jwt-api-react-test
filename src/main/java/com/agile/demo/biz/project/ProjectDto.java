@@ -14,9 +14,10 @@ public class ProjectDto {
 
     private String title;
 
-    private String assign;
+    private Long assign;
 
     private List<BacklogEntity> backlogs;
 
     private List<TaskEntity> tasks;
+
 }

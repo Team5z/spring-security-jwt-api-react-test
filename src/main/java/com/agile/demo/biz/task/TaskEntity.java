@@ -24,10 +24,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class TaskEntity extends BaseEntity {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name="nt_seq", nullable = false, length = 25, unique = true)
-//    private Long nt_seq;
 
     @Column(nullable = false, updatable = true, length = 100)
     private String title;
