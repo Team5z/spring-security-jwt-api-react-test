@@ -47,7 +47,8 @@ public class TaskEntity extends BaseEntity {
     @JoinColumn(name = "na_seq2", nullable = true)
     private AccountProjectEntity manager; // AccountProjectEntity에서 값을 받아오는 형태로?
 
-    // accountProjectEntity에서 가져오도록?
+//    // accountProjectEntity에서 가져오도록?
+//    // ManyToMany를 사용하려고 했는데 optional을 사용할 수 없음 => 값을 넣을 수 없음 ㅜ
 //    @ManyToMany
 //    @JoinColumn(name = "na_seq", nullable = true)
 //    private List<AccountProjectEntity> accountrPoject;
