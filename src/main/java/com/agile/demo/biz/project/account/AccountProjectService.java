@@ -66,11 +66,13 @@ public class AccountProjectService {
 
         Optional<AccountProjectEntity> accountProjectEntity = accountProjectRepository.findByAccounts_UserId(userId);
         if (!accountProjectEntity.isPresent()) {
-            throw new EntityNotFoundException("AccountProject not found with id " + userId);
+            // project에 가입이 안된 상태
+            System.out.println("null");
+        }else{
+            // project에 가입된 경우로, AccountProject에서 삭제
+            accountProjectRepository.deleteByAccounts_UserId(userId);
         }
 
-        // 프로젝트 삭제
-        accountProjectRepository.deleteByAccounts_UserId(userId);
     }
 
     // 2. 프로젝트 삭제 - 프로젝트내 속한 사람들의 정보 제거
