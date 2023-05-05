@@ -1,5 +1,7 @@
 package com.agile.demo.biz.project;
 
+import com.agile.demo.biz.project.account.AccountProjectDto;
+import com.agile.demo.biz.project.account.AccountProjectEntity;
 import com.agile.demo.biz.project.account.AccountProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +23,14 @@ public class ProjectController {
     @PostMapping // 프로젝트 생성하는 경우
     public ResponseEntity<?> createProject(@RequestBody ProjectDto projectDto) {
         ProjectEntity projectEntity = projectService.createProject(projectDto);
-        // AccountProject도 추가하기
-          // accountProject와 타입이 안맞는 문제 발생함
+        System.out.println("entity 성공");
+
+        // AccountProject에 추가하기
+        AccountProjectDto accountProjectDto  = new AccountProjectDto();
+        accountProjectDto.setAccountUserId(projectEntity.getAssign());
+        accountProjectDto.setProjectSeq(projectEntity.getSeq());
+        accountProjectService.createAccountProject(accountProjectDto);
+
         return ResponseEntity.accepted().build();
     }
     
@@ -30,7 +38,10 @@ public class ProjectController {
     @PostMapping("/invite") // 프로젝트에 초대하는 경우
     public ResponseEntity<?> inviteProject(@RequestBody ProjectDto projectDto) { // userId, ProjectSeq 필요
         // AccountProject도 추가하기
-        //accountProjectService.createAccountProject(projectDto);
+        AccountProjectDto accountProjectDto  = new AccountProjectDto();
+        accountProjectDto.setAccountUserId(projectDto.getAssign());
+        accountProjectDto.setProjectSeq(projectDto.getNp_seq());
+        accountProjectService.createAccountProject(accountProjectDto);
         return ResponseEntity.accepted().build();
     }
     
