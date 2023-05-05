@@ -96,16 +96,7 @@ public class TaskService {
                 .get();
     }
 
-    public void deleteTask(long nt_seq) {
-        // 프로젝트가 존재하는지 확인
-        Optional<TaskEntity> taskEntity = taskRepository.findById(nt_seq);
-        if (!taskEntity.isPresent()) {
-            throw new EntityNotFoundException("Project not found with id " + nt_seq);
-        }
 
-        // 프로젝트 삭제
-        taskRepository.deleteById(nt_seq);
-    }
     public TaskEntity updateTask(long nt_seq, TaskDto taskDto) {
         // nt_seq 값으로 태스크를 조회합니다.
         TaskEntity taskEntity = taskRepository.findById(nt_seq).get();
@@ -123,6 +114,17 @@ public class TaskService {
 
         // 업데이트된 태스크를 저장하고 반환합니다.
         return taskRepository.save(taskEntity);
+    }
+
+    public void deleteTask(long nt_seq) {
+        // 프로젝트가 존재하는지 확인
+        Optional<TaskEntity> taskEntity = taskRepository.findById(nt_seq);
+        if (!taskEntity.isPresent()) {
+            throw new EntityNotFoundException("Project not found with id " + nt_seq);
+        }
+
+        // 프로젝트 삭제
+        taskRepository.deleteById(nt_seq);
     }
 
 }

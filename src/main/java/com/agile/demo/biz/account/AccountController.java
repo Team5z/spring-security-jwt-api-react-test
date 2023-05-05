@@ -33,13 +33,13 @@ public class AccountController {
     }
 
     @GetMapping // Account의 전체 내용 출력
-    public List<AccountEntity> getAllBacklog() {
+    public List<AccountEntity> getAllAccount() {
         return accountService.getAllAccounts();
     }
 
-    @GetMapping("{userId}") // Account의 전체 내용 출력
+    @GetMapping("{userId}") // Account에서 userId로 조회 - 개인정보
     public ResponseEntity<AccountEntity> getUserIdAccount(@PathVariable String userId) {
-        AccountEntity accountEntity = accountService.getAccountById(userId);
+        AccountEntity accountEntity = accountService.getAccountByUserId(userId);
         return ResponseEntity.ok(accountEntity);
     }
     

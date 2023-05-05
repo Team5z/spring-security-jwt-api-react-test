@@ -19,11 +19,6 @@ public interface AccountProjectRepository extends JpaRepository<AccountProjectEn
 
     void deleteByAccounts_UserId(String userId);
 
-// 메소드 오류 문제
-    Optional<AccountProjectEntity> findByAccounts_Seq(Long np_seq);
-//    void deleteByProjects_Np_seq(Long np_Seq);
+    Optional<AccountProjectEntity> findByProjects_Seq(Long np_seq);
 
-//    Optional<AccountProjectEntity> deleteByAccounts(String userId);
-//
-//    Optional<AccountProjectEntity> deleteByProjects(Long np_seq);
 }

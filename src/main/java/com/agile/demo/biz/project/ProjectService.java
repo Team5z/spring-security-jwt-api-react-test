@@ -22,23 +22,25 @@ import java.util.Optional;
         @Autowired
         private AccountProjectRepository accountprojectRepository;
 
+    public ProjectEntity createProject(ProjectDto projectDto) {
+
+        ProjectEntity project = new ProjectEntity();
+        project.setTitle(projectDto.getTitle());
+        // 현재 로그인한 아이디를 넣는 방법으로, userId를 사용하는지, seq를 사용해서 저장하는지
+        project.setAssign(projectDto.getAssign());
+        return projectRepository.save(project);
+    }
+
     public List<ProjectEntity> getAllProjects() { // entity -> dto로 값을 넣는 과정
 
             return projectRepository.findAll();
         }
 
-        public void deleteProjectById(Long np_seq) {
-            projectRepository.deleteById(np_seq);
-        }
-
-        public ProjectEntity createProject(ProjectDto projectDto) {
-
-            ProjectEntity project = new ProjectEntity();
-            project.setTitle(projectDto.getTitle());
-            // 현재 로그인한 아이디를 넣는 방법으로, userId를 사용하는지, seq를 사용해서 저장하는지
-            project.setAssign(projectDto.getAssign());
-            return projectRepository.save(project);
-        }
+    public ProjectEntity getProjectByNp_seq(long np_seq) {
+        // np_seq 값으로 프로젝트를 조회합니다.
+        return projectRepository.findById(np_seq)
+                .get();
+    }
 
     public ProjectEntity updateProject(long np_seq, ProjectDto projectDto) {
         // np_seq 값으로 프로젝트를 조회합니다.
@@ -66,9 +68,5 @@ import java.util.Optional;
             projectRepository.deleteById(np_seq);
         }
 
-    public ProjectEntity getProjectById(long np_seq) {
-        // np_seq 값으로 프로젝트를 조회합니다.
-        return projectRepository.findById(np_seq)
-                .get();
-    }
+
 }

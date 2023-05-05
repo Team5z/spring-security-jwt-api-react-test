@@ -17,6 +17,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,6 +57,11 @@ public class AccountProjectService {
 
     public List<AccountProjectEntity> getAllaccountProject() {
         return accountProjectRepository.findAll();
+    }
+
+    public List<AccountProjectEntity> getAccountProjectByNp_seq(Long np_seq){
+        List<AccountProjectEntity> accountProjectEntities = Arrays.asList(accountProjectRepository.findByProjects_Seq(np_seq).orElse(null));
+        return accountProjectEntities;
     }
 
     //삭제하는 부분

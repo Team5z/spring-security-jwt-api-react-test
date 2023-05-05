@@ -18,9 +18,8 @@ public class BacklogService {
     @Autowired
     private ProjectRepository projectRepository;
 
+    // backlog 생성하기
     public BacklogEntity createBacklog(BacklogDto backlogDto) {
-
-        // project의 내용을 출
 
         Optional<ProjectEntity> projectEntity = projectRepository.findById(backlogDto.getProjectSeq());
         if (!projectEntity.isPresent()) {
@@ -28,7 +27,7 @@ public class BacklogService {
         }
 
         BacklogEntity backlogEntity = new BacklogEntity();
-        backlogEntity.setProject(projectEntity.get()); // 여기서 insert 안되는 이유 ㅜㅜ
+        backlogEntity.setProject(projectEntity.get());
         backlogEntity.setTitle(backlogDto.getTitle());
         backlogEntity.setDescription(backlogDto.getDescription());
         backlogEntity.setStoryProgress(backlogDto.getStoryProgress());
@@ -36,21 +35,19 @@ public class BacklogService {
         return backlogRepository.save(backlogEntity);
     }
 
+    // backlog의 모든 내용 가져오기
     public List<BacklogEntity> getAllBacklog() {
         return backlogRepository.findAll();
     }
 
-    public void deleteBacklog(long nb_seq) {
-        // 백로그가 존재하는지 확인
-        Optional<BacklogEntity> backlogEntity = backlogRepository.findById(nb_seq);
-        if (!backlogEntity.isPresent()) {
-            throw new EntityNotFoundException("Backlog not found with id " + nb_seq);
-        }
-
-        // 백로그 삭제
-        backlogRepository.deleteById(nb_seq);
+    // backlog에서 nb_seq로 조회
+    public BacklogEntity getBacklogByNb_seq(long nb_seq) {
+        // np_seq 값으로 프로젝트를 조회합니다.
+        return backlogRepository.findById(nb_seq)
+                .get();
     }
 
+    // backlog 내용 갱신하기
     public BacklogEntity updateBacklog(long nb_seq, BacklogDto backlogDto) {
         // np_seq 값으로 프로젝트를 조회합니다.
         BacklogEntity backlogEntity = backlogRepository.findById(nb_seq).get();
@@ -65,12 +62,16 @@ public class BacklogService {
         return backlogRepository.save(backlogEntity);
     }
 
-    public BacklogEntity getBacklogById(long nb_seq) {
-        // np_seq 값으로 프로젝트를 조회합니다.
-        return backlogRepository.findById(nb_seq)
-                .get();
+    // backlog 삭제하기
+    public void deleteBacklog(long nb_seq) {
+        // 백로그가 존재하는지 확인
+        Optional<BacklogEntity> backlogEntity = backlogRepository.findById(nb_seq);
+        if (!backlogEntity.isPresent()) {
+            throw new EntityNotFoundException("Backlog not found with id " + nb_seq);
+        }
+
+        // 백로그 삭제
+        backlogRepository.deleteById(nb_seq);
     }
-
-
 
 }

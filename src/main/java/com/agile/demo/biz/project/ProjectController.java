@@ -34,7 +34,7 @@ public class ProjectController {
         return ResponseEntity.accepted().build();
     }
     
-    // 프로젝트에 초대하는 경우
+
     @PostMapping("/invite") // 프로젝트에 초대하는 경우
     public ResponseEntity<?> inviteProject(@RequestBody ProjectDto projectDto) { // userId, ProjectSeq 필요
         // AccountProject도 추가하기
@@ -51,8 +51,8 @@ public class ProjectController {
     }
 
     @GetMapping("{np_seq}")
-    public ResponseEntity<ProjectEntity> getProjectById(@PathVariable long np_seq) {
-        ProjectEntity projectEntity =projectService.getProjectById(np_seq);
+    public ResponseEntity<ProjectEntity> getProjectByNp_seq(@PathVariable long np_seq) {
+        ProjectEntity projectEntity =projectService.getProjectByNp_seq(np_seq);
         return ResponseEntity.ok(projectEntity);
     }
 

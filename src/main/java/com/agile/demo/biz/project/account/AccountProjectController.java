@@ -30,14 +30,15 @@ public class AccountProjectController {
         return accountProjectService.getAllaccountProject();
     }
 
+    @GetMapping("{np_seq}")
+    public List<AccountProjectEntity> getAccountProjectByNp_Seq(@PathVariable Long np_seq){
+        return accountProjectService.getAccountProjectByNp_seq(np_seq);
+    }
+
     @DeleteMapping("/{userId}")
     public ResponseEntity deleteAccountProject(@PathVariable String userId){
         accountProjectService.deleteAccountProject_userId(userId);
         return ResponseEntity.accepted().build();
     }
 
-//    @DeleteMapping("/{np_seq}")
-//    public void deleteAccountProject(@PathVariable Long  np_seq){
-//        accountProjectService.deleteAccountProject_npSeq(np_seq);
-//    }
 }
