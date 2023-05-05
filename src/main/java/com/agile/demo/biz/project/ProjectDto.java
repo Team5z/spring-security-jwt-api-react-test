@@ -14,7 +14,7 @@ public class ProjectDto {
 
     private String title;
 
-    private Long assign;
+    private String assign;
 
     private List<BacklogEntity> backlogs;
 

@@ -27,7 +27,7 @@ public class ProjectEntity extends BaseEntity {
     private String title;
 
     @Column(nullable = true, updatable = true)
-    private Long assign;
+    private String assign;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "project" , cascade = CascadeType.REMOVE) // project를 삭제하면 같이 삭제
     private List<BacklogEntity> backlogs;
