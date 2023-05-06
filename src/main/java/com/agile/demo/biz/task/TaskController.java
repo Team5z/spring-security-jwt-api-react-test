@@ -13,39 +13,39 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-    @PostMapping
+    @PostMapping // Task 생성하기
     public ResponseEntity<?> createTask(@RequestBody TaskDto taskDto) {
         TaskEntity taskEntity = taskService.createTask(taskDto);
         return ResponseEntity.accepted().build();
     }
 
-    @GetMapping
+    @GetMapping // Task의 모든 내용 조회하기
         public List<TaskEntity> getAllTask() {
         return taskService.getAllTasks();
+    }
+
+    @GetMapping("{np_seq}") // Task 출력하기 - 프로젝트별
+    public ResponseEntity<TaskEntity> getProjectIdTask(@PathVariable long np_seq) {
+        TaskEntity taskEntity = taskService.getTaskByNp_seq(np_seq);
+        return ResponseEntity.ok(taskEntity);
+    }
+
+    @GetMapping("{nt_seq}") // Task 조회하기 - 1개만
+    public ResponseEntity<TaskEntity> getIdTask(@PathVariable long nt_seq) {
+        TaskEntity taskEntity = taskService.getTaskByNt_seq(nt_seq);
+        return ResponseEntity.ok(taskEntity);
+    }
+
+    @PutMapping("{nt_seq}") // Task의 내용 갱신하기
+    public ResponseEntity<?> updateTask(@PathVariable long nt_seq, @RequestBody TaskDto taskDto) {
+        TaskEntity taskEntity = taskService.updateTask(nt_seq, taskDto);
+        return ResponseEntity.ok(taskEntity);
     }
 
     @DeleteMapping("{nt_seq}")
     public ResponseEntity deleteTask(@PathVariable long nt_seq){
         taskService.deleteTask(nt_seq);
         return ResponseEntity.accepted().build();
-    }
-
-    @GetMapping("{np_seq}") // 태스크 출력하기 - 프로젝트별
-    public ResponseEntity<TaskEntity> getProjectIdTask(@PathVariable long np_seq) {
-        TaskEntity taskEntity = taskService.getTaskById(np_seq);
-        return ResponseEntity.ok(taskEntity);
-    }
-
-    @GetMapping("{nt_seq}") // 태스크 출력하기 - 1개만
-    public ResponseEntity<TaskEntity> getIdTask(@PathVariable long nt_seq) {
-        TaskEntity taskEntity = taskService.getTaskById(nt_seq);
-        return ResponseEntity.ok(taskEntity);
-    }
-
-    @PutMapping("{nt_seq}") // 테스크 - 정보수정
-    public ResponseEntity<?> updateTask(@PathVariable long nt_seq, @RequestBody TaskDto taskDto) {
-        TaskEntity taskEntity = taskService.updateTask(nt_seq, taskDto);
-        return ResponseEntity.ok(taskEntity);
     }
 
 }

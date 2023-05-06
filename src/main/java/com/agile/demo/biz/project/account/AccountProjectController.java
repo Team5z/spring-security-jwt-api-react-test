@@ -23,19 +23,18 @@ public class AccountProjectController {
 
         return ResponseEntity.accepted().build();
     }
-
-    // 내용이 잘들어갔는지 확인용
-    @GetMapping // 백로그 출력하기 - 전체
+    
+    @GetMapping // AccountProject 전체 내용 조회하기
     public List<AccountProjectEntity> getAllAccountProject() {
         return accountProjectService.getAllaccountProject();
     }
 
-    @GetMapping("{np_seq}")
+    @GetMapping("{np_seq}") // AccountProject에서 np_seq로 조회한 결과
     public List<AccountProjectEntity> getAccountProjectByNp_Seq(@PathVariable Long np_seq){
         return accountProjectService.getAccountProjectByNp_seq(np_seq);
     }
 
-    @DeleteMapping("/{userId}")
+    @DeleteMapping("/{userId}") // Account에서 UserId 삭제시 진행
     public ResponseEntity deleteAccountProject(@PathVariable String userId){
         accountProjectService.deleteAccountProject_userId(userId);
         return ResponseEntity.accepted().build();

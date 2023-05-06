@@ -38,6 +38,7 @@ public class AccountProjectService {
     // 2. 프로젝트에 초대 받은 경우 추가
     public AccountProjectEntity createAccountProject(AccountProjectDto accountProjectDto) {
 
+        // 1. 계쩡과 프로젝트의 존재 여부 확인
         Optional<AccountEntity> accountEntity = accountRepository.findByUserId(accountProjectDto.getAccountUserId());
         if (!accountEntity.isPresent()) {
             throw new EntityNotFoundException("Account not found with id " + accountProjectDto.getAccountUserId()); // id를 찾을 수 없는 경우 발생
@@ -47,6 +48,9 @@ public class AccountProjectService {
         if (!projectEntity.isPresent()) {
             throw new EntityNotFoundException("Project not found with id " + accountProjectDto.getProjectSeq());
         }
+
+        // 2. AccountProject에서 중복확인
+        // 여기에 중복확인 필요함 => 중복된 결과 있으면 retrurn
 
         AccountProjectEntity accountProjectEntity = new AccountProjectEntity();
         accountProjectEntity.setAccounts(accountEntity.get());

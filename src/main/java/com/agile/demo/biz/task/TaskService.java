@@ -31,7 +31,7 @@ public class TaskService {
     @Autowired
     private AccountProjectRepository accountProjectRepository;
 
-    public TaskEntity createTask(TaskDto taskDto) {
+    public TaskEntity createTask(TaskDto taskDto) { // Task 생성하기
 
         // backlog에서 값을 조회해서 backlogEntity에서 받아옴
         Optional<BacklogEntity> backlogEntity = backlogRepository.findById(taskDto.getBacklogSeq());
@@ -55,12 +55,6 @@ public class TaskService {
         if (!accountProjectEntityPresenter.isPresent()) {
             throw new EntityNotFoundException("AccountProject not found with Presenter Id " + taskDto.getPresenter()); // id를 찾을 수 없는 경우 발생
         }
-        
-        // 리스트에 0번 - Presenter, 1번 - Manager를 저장
-//        List<AccountProjectEntity> accountProjectList = new ArrayList<>();
-//        accountProjectList.add(accountProjectEntityPresenter);
-//        accountProjectList.add(accountProjectEntityManager);
-
 
         TaskEntity taskEntity = new TaskEntity();
         taskEntity.setSeq(taskDto.getNt_seq());
@@ -70,7 +64,6 @@ public class TaskService {
         taskEntity.setDeadline(taskDto.getDeadline()); // 작성자가 원하는 시간으로
         taskEntity.setPresenter(accountProjectEntityPresenter.get());
         taskEntity.setManager(accountProjectEntityManager.get());
-        //taskEntity.setAccountrPoject(accountProjectList.get(0));
         taskEntity.setBacklogEntity(backlogEntity.get());
         taskEntity.setProject(projectEntity.get());
         // BacklogEntity와 TaskEntity는 cascade 옵션으로 인해 자동 저장됩니다.
@@ -83,32 +76,41 @@ public class TaskService {
     }
 
     // 특정 project에서 task 조회하기
-    public TaskEntity getTaskByProjectId(long np_seq) {
+    public TaskEntity getTaskByNp_seq(long np_seq) { // Task를 project기준으로 조회하기
         // nt_seq 값으로 태스크를 조회합니다.
         return taskRepository.findById(np_seq)
                 .get();
     }
     
     // 특정 id의 task 조회
-    public TaskEntity getTaskByNt_seq(long nt_seq) {
+    public TaskEntity getTaskByNt_seq(long nt_seq) { // Task를 nt_seq로 조회하기(1개만 보이도록)
         // nt_seq 값으로 태스크를 조회합니다.
         return taskRepository.findById(nt_seq)
                 .get();
     }
 
 
-    public TaskEntity updateTask(long nt_seq, TaskDto taskDto) {
+    public TaskEntity updateTask(long nt_seq, TaskDto taskDto) { // Task의 내용 갱신하기
         // nt_seq 값으로 태스크를 조회합니다.
         TaskEntity taskEntity = taskRepository.findById(nt_seq).get();
 
         // 태스크를 업데이트합니다.
         taskEntity.setTitle(taskDto.getTitle());
         taskEntity.setDescription(taskDto.getDescription());
-        //taskEntity.setBacklogEntity(taskDto.getBacklogSeq());
 
-//
-//        taskEntity.setPresenter(taskDto.getPresenter());
-//        taskEntity.setManager(taskDto.getManager());
+        // manager, presenter의 값을 하나씩 조회 -> 리스트로 만들기
+        Optional<AccountProjectEntity> accountProjectEntityManager = accountProjectRepository.findByAccounts_UserId(taskDto.getManager());
+        if (!accountProjectEntityManager.isPresent()) {
+            throw new EntityNotFoundException("AccountProject not found with Manger Id " + taskDto.getManager()); // id를 찾을 수 없는 경우 발생
+        }
+
+        Optional<AccountProjectEntity> accountProjectEntityPresenter = accountProjectRepository.findByAccounts_UserId(taskDto.getPresenter());
+        if (!accountProjectEntityPresenter.isPresent()) {
+            throw new EntityNotFoundException("AccountProject not found with Presenter Id " + taskDto.getPresenter()); // id를 찾을 수 없는 경우 발생
+        }
+        taskEntity.setPresenter(accountProjectEntityPresenter.get());
+        taskEntity.setManager(accountProjectEntityManager.get());
+
         taskEntity.setStoryProgress(taskDto.getStoryProgress());
         taskEntity.setDeadline(taskDto.getDeadline());
 
@@ -116,7 +118,7 @@ public class TaskService {
         return taskRepository.save(taskEntity);
     }
 
-    public void deleteTask(long nt_seq) {
+    public void deleteTask(long nt_seq) { // Task내용 삭제하기
         // 프로젝트가 존재하는지 확인
         Optional<TaskEntity> taskEntity = taskRepository.findById(nt_seq);
         if (!taskEntity.isPresent()) {

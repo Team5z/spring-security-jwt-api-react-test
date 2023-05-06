@@ -22,27 +22,27 @@ import java.util.Optional;
         @Autowired
         private AccountProjectRepository accountprojectRepository;
 
-    public ProjectEntity createProject(ProjectDto projectDto) {
+    public ProjectEntity createProject(ProjectDto projectDto) { // project 생성하기
 
         ProjectEntity project = new ProjectEntity();
         project.setTitle(projectDto.getTitle());
-        // 현재 로그인한 아이디를 넣는 방법으로, userId를 사용하는지, seq를 사용해서 저장하는지
+        // 현재 로그인한 아이디를 넣는 방법이 있는지 알아보기
         project.setAssign(projectDto.getAssign());
         return projectRepository.save(project);
     }
 
-    public List<ProjectEntity> getAllProjects() { // entity -> dto로 값을 넣는 과정
+    public List<ProjectEntity> getAllProjects() { // project의 모든 내용 조회
 
             return projectRepository.findAll();
         }
 
-    public ProjectEntity getProjectByNp_seq(long np_seq) {
+    public ProjectEntity getProjectByNp_seq(long np_seq) { // project를 np_seq로 조회하기
         // np_seq 값으로 프로젝트를 조회합니다.
         return projectRepository.findById(np_seq)
                 .get();
     }
 
-    public ProjectEntity updateProject(long np_seq, ProjectDto projectDto) {
+    public ProjectEntity updateProject(long np_seq, ProjectDto projectDto) { // project의 내용 갱신하기
         // np_seq 값으로 프로젝트를 조회합니다.
         ProjectEntity projectEntity = projectRepository.findById(np_seq).get();
         
@@ -57,7 +57,7 @@ import java.util.Optional;
         return projectRepository.save(projectEntity);
     }
 
-        public void deleteProject(long np_seq) {
+        public void deleteProject(long np_seq) { // project 삭제하기
             // 프로젝트가 존재하는지 확인
             Optional<ProjectEntity> projectEntity = projectRepository.findById(np_seq);
             if (!projectEntity.isPresent()) {
