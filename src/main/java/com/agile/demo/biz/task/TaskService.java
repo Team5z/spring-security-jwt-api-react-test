@@ -90,7 +90,7 @@ public class TaskService {
     }
     
     // 특정 id의 task 조회
-    public TaskEntity getTaskById(long nt_seq) {
+    public TaskEntity getTaskByNt_seq(long nt_seq) {
         // nt_seq 값으로 태스크를 조회합니다.
         return taskRepository.findById(nt_seq)
                 .get();
