@@ -32,6 +32,12 @@ public class BacklogController {
         return ResponseEntity.ok(backlogEntity);
     }
 
+    @GetMapping("/project/{np_seq}") // 백로그 출력 - 프로젝트별 조회
+    public List<BacklogEntity>getBacklogByNp_seq(@PathVariable long np_seq) {
+        List<BacklogEntity> backlogEntity = backlogService.getBacklogByNp_seq(np_seq);
+        return backlogEntity;
+    }
+
     @PutMapping("{nb_seq}") // 백로그 수정
     public ResponseEntity<?> updateBacklog(@PathVariable long nb_seq, @RequestBody BacklogDto backlogDto) {
         BacklogEntity backlogEntity = backlogService.updateBacklog(nb_seq, backlogDto);

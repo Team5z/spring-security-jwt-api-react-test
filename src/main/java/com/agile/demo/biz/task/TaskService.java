@@ -15,6 +15,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskService {
@@ -46,6 +47,7 @@ public class TaskService {
         }
 
         // manager, presenter의 값을 하나씩 조회 -> 리스트로 만들기
+        // userId로 조회서 여러 프로젝트에 가입한 사람도 사용할 수 없음!
         Optional<AccountProjectEntity> accountProjectEntityManager = accountProjectRepository.findByAccounts_UserId(taskDto.getManager());
         if (!accountProjectEntityManager.isPresent()) {
             throw new EntityNotFoundException("AccountProject not found with Manger Id " + taskDto.getManager()); // id를 찾을 수 없는 경우 발생
@@ -76,10 +78,15 @@ public class TaskService {
     }
 
     // 특정 project에서 task 조회하기
-    public TaskEntity getTaskByNp_seq(long np_seq) { // Task를 project기준으로 조회하기
+    public List<TaskEntity> getTaskByNp_seq(long np_seq) { // Task를 project기준으로 조회하기
         // nt_seq 값으로 태스크를 조회합니다.
-        return taskRepository.findById(np_seq)
-                .get();
+//        return taskRepository.findByProject_Seq(np_seq)
+//                .get();
+        List<TaskEntity> taskEntities = taskRepository.findAll().stream()
+                .filter(backlog -> backlog.getProject().getSeq() == np_seq)
+                .collect(Collectors.toList());
+        return taskEntities;
+
     }
     
     // 특정 id의 task 조회

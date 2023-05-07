@@ -13,7 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Persistence;
 import javax.transaction.Transactional;
 import java.net.URI;
 import java.util.ArrayList;
@@ -51,7 +54,42 @@ public class AccountProjectService {
 
         // 2. AccountProject에서 중복확인
         // 여기에 중복확인 필요함 => 중복된 결과 있으면 retrurn
+        // JPQL을 사용해서 처리하기로!!!
 
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("name");
+//        EntityManager em = emf.createEntityManager();
+//
+//        //  H2에서 잘 실행되는 것 확인
+//         // Select COUNT(*) from ACCOUNT_PROJECT_ENTITY  where ACCOUNT_SEQ = 'sdsd1'  AND PROJECT_SEQ = '1'
+//        String sql = "Select COUNT(ap) from AccountProjectEntity ap where ap.ACCOUNT_SEQ :userId AND ap.PROJECT_SEQ :projectSeq";
+//
+//        Long count = em.createQuery(sql, AccountProjectEntity.class)
+//                .setParameter("userId", accountProjectDto.getAccountUserId())
+//                .setParameter("projectSeq", accountProjectDto.getProjectSeq())
+//                 .getSingleResult();
+//
+//        if (count >= 1)
+//            System.out.println("오류 발생");
+//
+//        em.close();
+
+//        Optional<AccountProjectEntity> accountProjectUser = accountProjectRepository.findByAccounts_UserId(accountProjectDto.getAccountUserId());
+//        if(accountProjectUser.isPresent()){
+//            // userId로 조회한 결과가 없음
+//            // 프로젝트 생성
+//            System.out.println();
+//        }else{
+//            Optional<AccountProjectEntity> accountProjectSeq = accountProjectRepository.findByProjects_Seq(accountProjectDto.getProjectSeq());
+//            if (accountProjectSeq.isPresent()){
+//                // 프로젝트 생성
+//                System.out.println();
+//            }else{
+//                // 생성할 수 없음
+//                throw new EntityNotFoundException("이미 프로젝트에 존재합니다. " );
+//            }
+//        }
+        
+        
         AccountProjectEntity accountProjectEntity = new AccountProjectEntity();
         accountProjectEntity.setAccounts(accountEntity.get());
         accountProjectEntity.setProjects(projectEntity.get());

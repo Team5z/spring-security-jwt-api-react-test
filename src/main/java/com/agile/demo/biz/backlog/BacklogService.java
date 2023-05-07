@@ -2,13 +2,16 @@ package com.agile.demo.biz.backlog;
 
 import com.agile.demo.biz.project.ProjectEntity;
 import com.agile.demo.biz.project.ProjectRepository;
+import com.agile.demo.biz.project.account.AccountProjectEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BacklogService {
@@ -45,6 +48,19 @@ public class BacklogService {
         // np_seq 값으로 프로젝트를 조회합니다.
         return backlogRepository.findById(nb_seq)
                 .get();
+    }
+
+
+    public List<BacklogEntity> getBacklogByNp_seq(long np_seq) {
+//        // np_seq 값으로 프로젝트를 조회합니다.
+//        List<BacklogEntity>  backlogEntities = Arrays.asList(backlogRepository.findByProject_Seq(np_seq).orElse(null));
+//        return backlogEntities;
+
+        List<BacklogEntity> backlogEntities = backlogRepository.findAll().stream()
+                .filter(backlog -> backlog.getProject().getSeq() == np_seq)
+                .collect(Collectors.toList());
+        return backlogEntities;
+
     }
 
     // backlog 내용 갱신하기

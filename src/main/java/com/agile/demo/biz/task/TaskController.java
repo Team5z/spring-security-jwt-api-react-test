@@ -24,10 +24,10 @@ public class TaskController {
         return taskService.getAllTasks();
     }
 
-    @GetMapping("{np_seq}") // Task 출력하기 - 프로젝트별
-    public ResponseEntity<TaskEntity> getProjectIdTask(@PathVariable long np_seq) {
-        TaskEntity taskEntity = taskService.getTaskByNp_seq(np_seq);
-        return ResponseEntity.ok(taskEntity);
+    @GetMapping("project/{np_seq}") // Task 출력하기 - 프로젝트별
+    public List<TaskEntity> getProjectIdTask(@PathVariable long np_seq) {
+        List<TaskEntity> taskEntity = taskService.getTaskByNp_seq(np_seq);
+        return taskEntity;
     }
 
     @GetMapping("{nt_seq}") // Task 조회하기 - 1개만
