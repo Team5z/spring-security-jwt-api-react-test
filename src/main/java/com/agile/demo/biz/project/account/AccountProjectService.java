@@ -56,7 +56,7 @@ public class AccountProjectService {
         // 여기에 중복확인 필요함 => 중복된 결과 있으면 return null; 
         // 어떻게 처리할지 고민중
         Long count = accountProjectRepository.findUser(accountProjectDto.getAccountUserId(), accountProjectDto.getProjectSeq());
-        if(count >= 1)
+        if(count >= 1) // 프로젝트에 가입한 사람이면 생성하지 않음
         {
             return null;
         }

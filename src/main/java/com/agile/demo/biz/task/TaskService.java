@@ -47,13 +47,12 @@ public class TaskService {
         }
 
         // manager, presenter의 값을 하나씩 조회 -> 리스트로 만들기
-        // userId로 조회서 여러 프로젝트에 가입한 사람도 사용할 수 없음!
-        Optional<AccountProjectEntity> accountProjectEntityManager = accountProjectRepository.findByAccounts_UserId(taskDto.getManager());
+        Optional<AccountProjectEntity> accountProjectEntityManager = accountProjectRepository.findUsers(taskDto.getManager(), projectEntity.get().getSeq());
         if (!accountProjectEntityManager.isPresent()) {
             throw new EntityNotFoundException("AccountProject not found with Manger Id " + taskDto.getManager()); // id를 찾을 수 없는 경우 발생
         }
 
-        Optional<AccountProjectEntity> accountProjectEntityPresenter = accountProjectRepository.findByAccounts_UserId(taskDto.getPresenter());
+        Optional<AccountProjectEntity> accountProjectEntityPresenter = accountProjectRepository.findUsers(taskDto.getPresenter(), projectEntity.get().getSeq());
         if (!accountProjectEntityPresenter.isPresent()) {
             throw new EntityNotFoundException("AccountProject not found with Presenter Id " + taskDto.getPresenter()); // id를 찾을 수 없는 경우 발생
         }
@@ -106,12 +105,12 @@ public class TaskService {
         taskEntity.setDescription(taskDto.getDescription());
 
         // manager, presenter의 값을 하나씩 조회 -> 리스트로 만들기
-        Optional<AccountProjectEntity> accountProjectEntityManager = accountProjectRepository.findByAccounts_UserId(taskDto.getManager());
+        Optional<AccountProjectEntity> accountProjectEntityManager = accountProjectRepository.findUsers(taskDto.getManager(), taskDto.getProjectSeq());
         if (!accountProjectEntityManager.isPresent()) {
             throw new EntityNotFoundException("AccountProject not found with Manger Id " + taskDto.getManager()); // id를 찾을 수 없는 경우 발생
         }
 
-        Optional<AccountProjectEntity> accountProjectEntityPresenter = accountProjectRepository.findByAccounts_UserId(taskDto.getPresenter());
+        Optional<AccountProjectEntity> accountProjectEntityPresenter = accountProjectRepository.findUsers(taskDto.getPresenter(), taskDto.getProjectSeq());
         if (!accountProjectEntityPresenter.isPresent()) {
             throw new EntityNotFoundException("AccountProject not found with Presenter Id " + taskDto.getPresenter()); // id를 찾을 수 없는 경우 발생
         }

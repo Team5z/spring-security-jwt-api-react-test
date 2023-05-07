@@ -24,4 +24,7 @@ public interface AccountProjectRepository extends JpaRepository<AccountProjectEn
     @Query("SELECT COUNT(ap) FROM AccountProjectEntity ap WHERE ap.accounts.userId = :userId AND ap.projects.seq = :projectSeq")
     Long findUser(@Param("userId") String userId, @Param("projectSeq") Long projectSeq);
 
+
+    @Query("SELECT ap FROM AccountProjectEntity ap WHERE ap.accounts.userId = :userId AND ap.projects.seq = :projectSeq")
+    Optional<AccountProjectEntity> findUsers(@Param("userId") String userId, @Param("projectSeq") Long projectSeq);
 }
