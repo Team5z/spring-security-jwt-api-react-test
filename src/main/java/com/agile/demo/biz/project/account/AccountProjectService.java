@@ -53,42 +53,15 @@ public class AccountProjectService {
         }
 
         // 2. AccountProject에서 중복확인
-        // 여기에 중복확인 필요함 => 중복된 결과 있으면 retrurn
-        // JPQL을 사용해서 처리하기로!!!
+        // 여기에 중복확인 필요함 => 중복된 결과 있으면 return null; 
+        // 어떻게 처리할지 고민중
+        Long count = accountProjectRepository.findUser(accountProjectDto.getAccountUserId(), accountProjectDto.getProjectSeq());
+        if(count >= 1)
+        {
+            return null;
+        }
 
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("sql");
-//        EntityManager em = emf.createEntityManager();
-//
-//        //  H2에서 잘 실행되는 것 확인
-//         // Select COUNT(*) from ACCOUNT_PROJECT_ENTITY  where ACCOUNT_SEQ = 'sdsd1'  AND PROJECT_SEQ = '1'
-//        String sql = "SELECT COUNT(ap) FROM AccountProjectEntity ap WHERE ap.Account_userId = :userId AND ap.PROJECT_SEQ = :projectSeq";
-//        Long count = em.createQuery(sql, Long.class)
-//                .setParameter("userId", accountProjectDto.getAccountUserId())
-//                .setParameter("projectSeq", accountProjectDto.getProjectSeq())
-//                .getSingleResult();
-//
-//        if (count >= 1)
-//            System.out.println("오류 발생");
-//
-//        em.close();
 
-//        Optional<AccountProjectEntity> accountProjectUser = accountProjectRepository.findByAccounts_UserId(accountProjectDto.getAccountUserId());
-//        if(accountProjectUser.isPresent()){
-//            // userId로 조회한 결과가 없음
-//            // 프로젝트 생성
-//            System.out.println();
-//        }else{
-//            Optional<AccountProjectEntity> accountProjectSeq = accountProjectRepository.findByProjects_Seq(accountProjectDto.getProjectSeq());
-//            if (accountProjectSeq.isPresent()){
-//                // 프로젝트 생성
-//                System.out.println();
-//            }else{
-//                // 생성할 수 없음
-//                throw new EntityNotFoundException("이미 프로젝트에 존재합니다. " );
-//            }
-//        }
-        
-        
         AccountProjectEntity accountProjectEntity = new AccountProjectEntity();
         accountProjectEntity.setAccounts(accountEntity.get());
         accountProjectEntity.setProjects(projectEntity.get());
