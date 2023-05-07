@@ -37,13 +37,13 @@ public class TaskService {
         // backlog에서 값을 조회해서 backlogEntity에서 받아옴
         Optional<BacklogEntity> backlogEntity = backlogRepository.findById(taskDto.getBacklogSeq());
         if (!backlogEntity.isPresent()) {
-            throw new EntityNotFoundException("Account not found with id " + taskDto.getBacklogSeq()); // id를 찾을 수 없는 경우 발생
+            throw new EntityNotFoundException("Backlog not found with id " + taskDto.getBacklogSeq()); // id를 찾을 수 없는 경우 발생
         }
 
         // project에서 값을 조회해서 backlogEntity에서 받아옴
         Optional<ProjectEntity> projectEntity = projectRepository.findById(taskDto.getProjectSeq());
         if (!projectEntity.isPresent()) {
-            throw new EntityNotFoundException("Account not found with id " + taskDto.getProjectSeq()); // id를 찾을 수 없는 경우 발생
+            throw new EntityNotFoundException("Project not found with id " + taskDto.getProjectSeq()); // id를 찾을 수 없는 경우 발생
         }
 
         // manager, presenter의 값을 하나씩 조회 -> 리스트로 만들기
@@ -129,7 +129,7 @@ public class TaskService {
         // 프로젝트가 존재하는지 확인
         Optional<TaskEntity> taskEntity = taskRepository.findById(nt_seq);
         if (!taskEntity.isPresent()) {
-            throw new EntityNotFoundException("Project not found with id " + nt_seq);
+            throw new EntityNotFoundException("Task not found with id " + nt_seq);
         }
 
         // 프로젝트 삭제

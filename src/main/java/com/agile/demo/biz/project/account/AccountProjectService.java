@@ -56,17 +56,16 @@ public class AccountProjectService {
         // 여기에 중복확인 필요함 => 중복된 결과 있으면 retrurn
         // JPQL을 사용해서 처리하기로!!!
 
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("name");
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("sql");
 //        EntityManager em = emf.createEntityManager();
 //
 //        //  H2에서 잘 실행되는 것 확인
 //         // Select COUNT(*) from ACCOUNT_PROJECT_ENTITY  where ACCOUNT_SEQ = 'sdsd1'  AND PROJECT_SEQ = '1'
-//        String sql = "Select COUNT(ap) from AccountProjectEntity ap where ap.ACCOUNT_SEQ :userId AND ap.PROJECT_SEQ :projectSeq";
-//
-//        Long count = em.createQuery(sql, AccountProjectEntity.class)
+//        String sql = "SELECT COUNT(ap) FROM AccountProjectEntity ap WHERE ap.Account_userId = :userId AND ap.PROJECT_SEQ = :projectSeq";
+//        Long count = em.createQuery(sql, Long.class)
 //                .setParameter("userId", accountProjectDto.getAccountUserId())
 //                .setParameter("projectSeq", accountProjectDto.getProjectSeq())
-//                 .getSingleResult();
+//                .getSingleResult();
 //
 //        if (count >= 1)
 //            System.out.println("오류 발생");
