@@ -1,6 +1,7 @@
 package com.agile.demo.biz.account;
 
 import com.agile.demo.biz.backlog.BacklogDto;
+import com.agile.demo.biz.backlog.BacklogEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +45,11 @@ public class AccountController {
     }
     
     // update 하는 내용 추가 필요
-
+    @PutMapping("{userId}") // 백로그 수정
+    public ResponseEntity<?> updateBacklog(@PathVariable String userId, @RequestBody AccountDto accountDto) {
+        AccountEntity accountEntity = accountService.updateAccount(userId, accountDto);
+        return ResponseEntity.ok(accountEntity);
+    }
 
     @DeleteMapping("/{userId}")
     public void deleteAccount(@PathVariable String userId){

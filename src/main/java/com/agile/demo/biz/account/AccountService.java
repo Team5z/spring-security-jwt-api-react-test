@@ -25,6 +25,11 @@ public class AccountService {
 
     // AccountEntity 생성하기
     public AccountEntity createAccount(AccountDto accountDto) {
+
+        // userId가 존재하는지 확인
+        if(accountRepository.existsByUserId(accountDto.getUserId()))
+            return null; // 아이디가 있으면 null로 반환 -> 경고 메세지 출력등 고려하기
+
         AccountEntity accountEntity = new AccountEntity();
         accountEntity.setUserId(accountDto.getUserId());
         accountEntity.setName(accountDto.getName());
@@ -48,6 +53,20 @@ public class AccountService {
         return accountRepository.findByUserId(userId)
                 .get();
     }
+
+    // AccountEntity에서 정보 갱신하기
+    public AccountEntity updateAccount(String userId,AccountDto accountDto){
+        AccountEntity accountEntity = accountRepository.findByUserId(accountDto.getUserId()).get();
+
+        // 프로젝트를 업데이트합니다.
+        accountEntity.setName(accountDto.getName());
+        accountEntity.setPhone(accountDto.getPhone());
+
+
+        // 업데이트된 프로젝트를 저장하고 반환합니다.
+        return accountRepository.save(accountEntity);
+    }
+
 
     // AccountEntity에서 userId 삭제하기
     public void deleteAccount(String userId){

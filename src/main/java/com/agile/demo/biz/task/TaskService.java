@@ -78,9 +78,6 @@ public class TaskService {
 
     // 특정 project에서 task 조회하기
     public List<TaskEntity> getTaskByNp_seq(long np_seq) { // Task를 project기준으로 조회하기
-        // nt_seq 값으로 태스크를 조회합니다.
-//        return taskRepository.findByProject_Seq(np_seq)
-//                .get();
         List<TaskEntity> taskEntities = taskRepository.findAll().stream()
                 .filter(backlog -> backlog.getProject().getSeq() == np_seq)
                 .collect(Collectors.toList());

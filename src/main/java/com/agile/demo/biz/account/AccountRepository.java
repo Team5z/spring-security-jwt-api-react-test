@@ -10,4 +10,6 @@ public interface AccountRepository extends JpaRepository<AccountEntity, Long> {
     Optional<AccountEntity> findByUserId(String userId);
 
     Optional<AccountEntity> deleteByUserId(String userId);
+
+    boolean existsByUserId(String userId);
 }

@@ -33,7 +33,8 @@ public class BacklogService {
         backlogEntity.setProject(projectEntity.get());
         backlogEntity.setTitle(backlogDto.getTitle());
         backlogEntity.setDescription(backlogDto.getDescription());
-        backlogEntity.setStoryProgress(backlogDto.getStoryProgress());
+        backlogEntity.setDeadline(backlogDto.getDeadline());
+//        backlogEntity.setStoryProgress(backlogDto.getStoryProgress());
 
         return backlogRepository.save(backlogEntity);
     }
@@ -71,7 +72,7 @@ public class BacklogService {
         // 프로젝트를 업데이트합니다.
         backlogEntity.setTitle(backlogDto.getTitle());
         backlogEntity.setDescription(backlogDto.getDescription());
-        backlogEntity.setStoryProgress(backlogDto.getStoryProgress());
+        backlogEntity.setDeadline(backlogDto.getDeadline());
 
 
         // 업데이트된 프로젝트를 저장하고 반환합니다.

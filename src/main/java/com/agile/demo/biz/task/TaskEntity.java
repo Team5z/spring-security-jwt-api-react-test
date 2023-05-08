@@ -33,7 +33,7 @@ public class TaskEntity extends BaseEntity {
     private String description;
 
 
-    // deadline 추가하기 - dropdown 형식으로 보이도록할 예정
+    // deadline 추가하기 - 캘린더 형식으로 보이도록할 예정
     @Column(nullable = true, updatable = true)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate deadline;

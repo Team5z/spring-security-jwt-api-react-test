@@ -78,6 +78,7 @@ public class AccountProjectService {
         return accountProjectEntities;
     }
 
+
     //삭제하는 부분
     // 1. 계정 삭제, 프로젝트 탈퇴 - 개인 정보만 삭제하는 경우
     @Transactional

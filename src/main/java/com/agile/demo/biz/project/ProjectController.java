@@ -56,6 +56,15 @@ public class ProjectController {
         return ResponseEntity.ok(projectEntity);
     }
 
+    //userId에 따라서 리스트 출력하기`
+//    @GetMapping("{userId}") // Project에서 np_seq로 조회하기
+//    public ResponseEntity<ProjectEntity> getProjectByUserId(@PathVariable String userId) {
+//        //user가 가입한 프로젝트들이 필요한거지?
+//
+//        ProjectEntity projectEntity = projectService.getProjectByNp_seq(np_seq);
+//        return ResponseEntity.ok(projectEntity);
+//    }
+
     // 특정 값을의 내용을 수정
     @PutMapping("{np_seq}") // Project의 내용 갱신하기
     public ResponseEntity<?> updateProject(@PathVariable long np_seq, @RequestBody ProjectDto projectDto) {
